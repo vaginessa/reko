@@ -257,6 +257,7 @@ l100013CC:
 	branch Mem29[0x100020CC<p32>:word32] == 0<32> l100013DD
 l100013D5:
 	Mem74[ebp_13 - 28<i32>:word32] = fn00000000(ebx_115, edx, ecx)
+	esp_101 = fp - 20<i32> (alias)
 l100013DD:
 	branch Mem76[ebp_13 - 28<i32>:word32] == 0<32> l1000147A
 l100013E7:
@@ -292,6 +293,7 @@ l1000140E:
 	branch Mem148[0x100020CC<p32>:word32] == 0<32> l1000142E
 l10001428:
 	fn00000000(ebx_115, 0<32>, edi_109)
+	esp_101 = esp_108 - 8<i32> (alias)
 l1000142E:
 	branch esi_112 == 0<32> l10001437
 l10001432:
@@ -315,6 +317,7 @@ l1000144C:
 	branch Mem227[0x100020CC<p32>:word32] == 0<32> l1000147A
 l10001455:
 	Mem257[ebp_13 - 28<i32>:word32] = fn00000000(ebx_204, esi_206, edi_207)
+	esp_101 = esp_190 - 8<i32> (alias)
 l100013BB:
 	Mem258[ebp_13 - 28<i32>:word32] = 0<32>
 l1000147A:
@@ -373,36 +376,39 @@ word32 fn100015CF(word32 ebx, word32 esi, word32 edi)
 // Trashed: SCZO eax ebp ebx ecx edi esi Top
 // Preserved: esp
 fn100015CF_entry:
-	ptr32 fp
 	word32 dwLoc0C
+	void * ptrLoc10
+	_onexit_t tLoc1C
+	PVFV ** ptrLoc18
+	PVFV ** ptrLoc14
 l100015CF:
+	word32 dwLoc0C_107
 	word32 eax_112
-	word32 esp_81
 	word32 ebp_13 = fn100017E8(ebx, esi, edi, dwLoc0C, 0x14<32>)
 	word32 eax_22 = _decode_pointer(Mem7[0x100033B4<p32>:word32])
 	Mem25[ebp_13 - 28<i32>:word32] = eax_22
 	branch eax_22 != 0xFFFFFFFF<32> l100015FE
 l100015FE:
 	lock(8<32>)
-	word32 ecx_35 = Mem29[esp_30:word32]
 	Mem38[ebp_13 - 4<i32>:word32] = 0<32>
 	word32 v16_42 = Mem38[0x100033B4<p32>:word32]
-	Mem46[ebp_13 - 28<i32>:word32] = _decode_pointer(Mem44[esp_30:(ptr32 void)])
+	Mem46[ebp_13 - 28<i32>:word32] = _decode_pointer(8<32>)
 	word32 v17_47 = Mem46[0x100033B0<p32>:word32]
-	Mem51[ebp_13 - 32<i32>:word32] = _decode_pointer(Mem49[esp_30 - 4<i32>:(ptr32 void)])
+	Mem51[ebp_13 - 32<i32>:word32] = _decode_pointer(ptrLoc10)
 	word32 v18_58 = Mem57[ebp_13 + 8<i32>:word32]
-	Mem62[ebp_13 - 36<i32>:word32] = __dllonexit(Mem60[esp_30 - 16<i32>:_onexit_t], Mem60[esp_30 - 12<i32>:(ptr32 (ptr32 PVFV))], Mem60[esp_30 - 8<i32>:(ptr32 (ptr32 PVFV))])
-	Mem72[0x100033B4<p32>:word32] = encode_pointer(ecx_35, Mem62[ebp_13 - 28<i32>:word32], v18_58, ebp_13 - 28<i32>, ebp_13 - 32<i32>, v17_47, v16_42)
-	Mem83[0x100033B0<p32>:word32] = encode_pointer(Mem72[ebp_13 - 32<i32>:word32])
+	Mem62[ebp_13 - 36<i32>:word32] = __dllonexit(tLoc1C, ptrLoc18, ptrLoc14)
+	Mem72[0x100033B4<p32>:word32] = encode_pointer(8<32>, Mem62[ebp_13 - 28<i32>:word32], v18_58, ebp_13 - 28<i32>, ebp_13 - 32<i32>, v17_47, v16_42)
+	Mem83[0x100033B0<p32>:word32] = encode_pointer(8<32>, Mem72[ebp_13 - 32<i32>:word32])
 	Mem84[ebp_13 - 4<i32>:word32] = 0xFFFFFFFE<32>
 	fn10001665()
-	esp_81 = esp_76 + 0x1C<32>
+	dwLoc0C_107 = 8<32>
 	eax_112 = Mem84[ebp_13 - 36<i32>:word32]
 l100015F2:
-	eax_112 = _onexit(Mem25[ebp_13 + 8<i32>:word32])
-	esp_81 = fp - 8<i32>
+	word32 v11_87 = Mem25[ebp_13 + 8<i32>:word32]
+	dwLoc0C_107 = v11_87
+	eax_112 = _onexit(v11_87)
 l1000165F:
-	fn1000182D(ebp_13, Mem96[esp_81 + -4<i32>:word32])
+	fn1000182D(ebp_13, dwLoc0C_107)
 	return eax_112
 fn100015CF_exit:
 

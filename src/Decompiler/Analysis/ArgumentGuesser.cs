@@ -286,9 +286,10 @@ namespace Reko.Analysis
                 }
             }
             Instruction newInstr;
+            Identifier? idRet = null;
             if (gret is not null)
             {
-                var idRet = MatchingReturnIdentifier(call, gret);
+                idRet = MatchingReturnIdentifier(call, gret);
                 if (idRet is { })
                 {
                     var application = new Application(pc, idRet.DataType, args.ToArray());
@@ -305,11 +306,65 @@ namespace Reko.Analysis
                 var application = new Application(pc, VoidType.Instance, args.ToArray());
                 newInstr = new SideEffect(application);
             }
+            var bypasses = BypassedDefinedIdentifiers(call, idRet);
             ssa.RemoveUses(stmCall);
             ssa.ReplaceDefinitions(stmCall, null);
             stmCall.Instruction = newInstr;
             ssa.AddDefinitions(stmCall);
             ssa.AddUses(stmCall);
+            AddBypassStatements(stmCall, bypasses);
+        }
+
+        /// <summary>
+        /// For each identifier that the <see cref="CallInstruction"/>
+        /// marked as modified, but which the argument guesser did not
+        /// consider to be a returned value from the callee, find the 
+        /// value the identifier had before the call by looking in the
+        /// <see cref="CallInstruction.Uses"/>. 
+        /// </summary>
+        /// <param name="call">Call instruction to bypass</param>
+        /// <param name="idRet">Possible identifier return from call, 
+        /// or null.</param>
+        /// <returns>A list of (expression, <see cref="SsaIdentifier"/>
+        /// pairs that can be used to construct bypassing instructions
+        /// after the call.</returns>
+        private List<(Expression, SsaIdentifier)> BypassedDefinedIdentifiers(
+            CallInstruction call,
+            Identifier? idRet)
+        {
+            var result = new List<(Expression, SsaIdentifier)>();
+            foreach (var def in call.Definitions)
+            {
+                if (def.Expression is not Identifier idDef ||
+                    idDef == idRet)
+                    continue;
+                var sidDef = ssa.Identifiers[idDef];
+                foreach (var use in call.Uses)
+                {
+                    if (use.Storage == def.Storage)
+                    {
+                        result.Add((use.Expression, sidDef));
+                    }
+                }
+            }
+            return result;
+        }
+
+        private void AddBypassStatements(
+            Statement stmCall, 
+            List<(Expression, SsaIdentifier)> bypasses)
+        {
+            var block = stmCall.Block;
+            int iStm = block.Statements.IndexOf(stmCall) + 1;
+            foreach (var (exp, sid) in bypasses)
+            {
+                var ass = new AliasAssignment(sid.Identifier, exp);
+                var stm = new Statement(stmCall.Address, ass, block);
+                block.Statements.Insert(iStm, stm);
+                sid.DefStatement = stm;
+                ssa.AddUses(stm, exp);
+                ++iStm;
+            }
         }
 
         private static Identifier? MatchingReturnIdentifier(CallInstruction call, Storage gret)

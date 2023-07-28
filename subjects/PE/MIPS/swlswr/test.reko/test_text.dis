@@ -59,8 +59,8 @@ void fn0001116C(word32 r2, word32 r4)
 
 // MayUse:  r2:[0..31] r4:[0..31]
 // LiveOut:
-// Trashed: r2 r30 r4 r5 r8 ra sp
-// Preserved:
+// Trashed: r30 ra sp
+// Preserved: r2
 fn0001116C_entry:
 l0001116C:
 	Mem11[r2 + 0xFFFFFFEC<32>:word32] = r4
@@ -79,8 +79,8 @@ void fn000111C4()
 //      Win32CrtStartup
 // MayUse: 
 // LiveOut:
-// Trashed: r8 r9
-// Preserved: r2 ra sp
+// Trashed: r2 r8 r9
+// Preserved: ra sp
 fn000111C4_entry:
 l000111C4:
 	word32 r8_7 = Mem5[0x13030<32>:word32]
@@ -89,6 +89,7 @@ l000111E4:
 	branch r8_7 == 0xB064<32> l0001120C
 l0001120C:
 	COREDLL.dll!Ordinal_2696()
+	word32 r2_16 = r2_16
 	word32 r8_24 = r2_16 >>u 0x10<8> ^ r2_16 & 0xFFFF<32>
 	word32 dwLoc0C_50 = r8_24
 	branch r8_24 != 0<32> l0001124C

@@ -3604,8 +3604,8 @@ l00404256:
 l00404258:
 	word32 r2_53
 	word32 r1_31 = Mem19[0x004042CC<p32>:word32]
-	word32 r0_41
 	word32 r8_40
+	word32 r0_41
 	word32 r9_42
 	word32 r10_43
 	word32 r12_44
@@ -3628,7 +3628,7 @@ l00404280:
 	word32 r12_92
 	word32 pr_93
 	call 0x0040428A<p32> + r1_76 (retsize: 0;)
-		uses: pr:pr_85,r1:r1_76,r10:r10_83,r12:r12_84,r4:(r2_77 << 2<i32>) + 1<32>,r8:r8_81,r9:r9_82
+		uses: pr:pr_45,r1:r1_76,r10:r10_43,r12:r12_44,r4:(r2_77 << 2<i32>) + 1<32>,r8:r8_40,r9:r9_42
 		defs: pr:pr_93,r0:r0_89,r12:r12_92,r8:r8_88,r9:r9_90
 	branch r0_89 != 0<32> l0040428E_ds_t
 l0040428E_ds_t:
@@ -3665,7 +3665,7 @@ l00404274_ds_f:
 l00404276:
 	word32 r1_185 = Mem19[0x004042D8<p32>:word32]
 	call 0x00404280<p32> + r1_185 (retsize: 0;)
-		uses: pr:pr_65,r1:r1_185,r10:r10_63,r12:r12_64,r4:1<32>,r5:Mem19[0x004042D4<p32>:word32] + r12_64,r8:r8_60,r9:r9_62
+		uses: pr:pr_45,r1:r1_185,r10:r10_43,r12:r12_44,r4:1<32>,r5:Mem19[0x004042D4<p32>:word32] + r12_44,r8:r8_40,r9:r9_42
 
 
 void printescaped(word32 r4, word32 r9, word32 r11, word32 r13, word32 r14, word32 pr)

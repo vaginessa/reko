@@ -3,8 +3,8 @@ void fn0000(selector __data)
 
 // MayUse:  __data:[0..15]
 // LiveOut:
-// Trashed: CAOP A DPH DPL R1 R7 SFR12C
-// Preserved: SP
+// Trashed: CAOP A DPH DPL R1 R7
+// Preserved: SFR12C SP
 fn0000_entry:
 l0000:
 l0788:
@@ -12,8 +12,8 @@ l077A:
 	Mem8[__data:0x001D<p16>:byte] = 0<8>
 l0791:
 	fn4EF3()
-	Mem32[__data_23:0x157<16>:byte] = 5<8>
-	branch (Mem32[__data_23:0x80EA<16>:byte] >>u 2<8> & 1<8>) != 0<8> l07AA
+	Mem32[__data:0x157<16>:byte] = 5<8>
+	branch (Mem32[__data:0x80EA<16>:byte] >>u 2<8> & 1<8>) != 0<8> l07AA
 l07A7:
 	fn4AC0()
 l07AA:

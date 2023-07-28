@@ -106,8 +106,8 @@ word64 _mm_malloc(word64 rsi, word64 rdi)
 //      main
 // MayUse:  rdi:[0..63] rsi:[0..63]
 // LiveOut: rax
-// Trashed: SCZOP rax rdi Top
-// Preserved: rbp rcx rdi rdx rsi rsp
+// Trashed: SCZOP rax rcx rdi rdx rsi Top
+// Preserved: rbp rsp
 _mm_malloc_entry:
 	ptr64 fp
 	word64 qwLoc10
@@ -186,58 +186,58 @@ main_entry:
 	word128 xmm0
 l0000000000000898:
 	word64 rax_16 = _mm_malloc(0x20<u64>, 0x2000<64>)
-	word64 rax_30 = _mm_malloc(0x20<u64>, 0x2000<64>)
-	word64 rax_44 = _mm_malloc(0x20<u64>, 0x2000<64>)
-	word64 qwLoc10_211 = 0<64>
+	word64 rax_33 = _mm_malloc(0x20<u64>, 0x2000<64>)
+	word64 rax_50 = _mm_malloc(0x20<u64>, 0x2000<64>)
+	word64 qwLoc10_220 = 0<64>
 l000000000000093F:
-	branch qwLoc10_211 <u 0x400<64> l00000000000008FD
+	branch qwLoc10_220 <u 0x400<64> l00000000000008FD
 l00000000000008FD:
-	word64 rcx_61 = qwLoc10_211 * 8<64> + rax_16
-	word32 eax_69 = SLICE(qwLoc10_211, word32, 0)
-	branch qwLoc10_211 < 0<64> l0000000000000921
+	word64 rcx_70 = qwLoc10_220 * 8<64> + rax_16
+	word32 eax_78 = SLICE(qwLoc10_220, word32, 0)
+	branch qwLoc10_220 < 0<64> l0000000000000921
 l0000000000000921:
-	real64 v27_76 = CONVERT(qwLoc10_211 >>u 1<64> | CONVERT(eax_69 & 1<32>, word32, uint64), word64, real64)
-	xmm0 = SEQ(0<64>, v27_76 + v27_76)
+	real64 v27_85 = CONVERT(qwLoc10_220 >>u 1<64> | CONVERT(eax_78 & 1<32>, word32, uint64), word64, real64)
+	xmm0 = SEQ(0<64>, v27_85 + v27_85)
 l000000000000091A:
-	xmm0 = SEQ(SLICE(xmm0, word64, 64), CONVERT(qwLoc10_211, word64, real64))
+	xmm0 = SEQ(SLICE(xmm0, word64, 64), CONVERT(qwLoc10_220, word64, real64))
 l0000000000000936:
-	Mem85[rcx_61:real64] = SLICE(xmm0, real64, 0)
-	qwLoc10_211 = qwLoc10_211 + 1<64>
+	Mem94[rcx_70:real64] = SLICE(xmm0, real64, 0)
+	qwLoc10_220 = qwLoc10_220 + 1<64>
 l0000000000000949:
-	word64 qwLoc18_217 = 0<64>
+	word64 qwLoc18_226 = 0<64>
 l0000000000000998:
-	branch qwLoc18_217 <u 0x400<64> l0000000000000953
+	branch qwLoc18_226 <u 0x400<64> l0000000000000953
 l0000000000000953:
-	word32 eax_108 = SLICE(qwLoc18_217, word32, 0) + 1<32>
-	word64 rcx_101 = qwLoc18_217 * 8<64> + rax_30
-	branch qwLoc18_217 < 0xFFFFFFFFFFFFFFFF<64> l000000000000097A
+	word32 eax_117 = SLICE(qwLoc18_226, word32, 0) + 1<32>
+	word64 rcx_110 = qwLoc18_226 * 8<64> + rax_33
+	branch qwLoc18_226 < 0xFFFFFFFFFFFFFFFF<64> l000000000000097A
 l000000000000097A:
-	real64 v22_115 = CONVERT(qwLoc18_217 + 1<64> >>u 1<64> | CONVERT(eax_108 & 1<32>, word32, uint64), word64, real64)
-	xmm0 = SEQ(0<64>, v22_115 + v22_115)
+	real64 v22_124 = CONVERT(qwLoc18_226 + 1<64> >>u 1<64> | CONVERT(eax_117 & 1<32>, word32, uint64), word64, real64)
+	xmm0 = SEQ(0<64>, v22_124 + v22_124)
 l0000000000000973:
-	xmm0 = SEQ(SLICE(xmm0, word64, 64), CONVERT(qwLoc18_217 + 1<64>, word64, real64))
+	xmm0 = SEQ(SLICE(xmm0, word64, 64), CONVERT(qwLoc18_226 + 1<64>, word64, real64))
 l000000000000098F:
-	Mem124[rcx_101:real64] = SLICE(xmm0, real64, 0)
-	qwLoc18_217 = qwLoc18_217 + 1<64>
+	Mem133[rcx_110:real64] = SLICE(xmm0, real64, 0)
+	qwLoc18_226 = qwLoc18_226 + 1<64>
 l00000000000009A2:
-	word64 qwLoc20_223 = 0<64>
+	word64 qwLoc20_232 = 0<64>
 l00000000000009CC:
-	branch qwLoc20_223 <u 0x400<64> l00000000000009AC
+	branch qwLoc20_232 <u 0x400<64> l00000000000009AC
 l00000000000009AC:
-	Mem140[rax_44 + qwLoc20_223 * 8<64>:real64] = 0.0
-	qwLoc20_223 = qwLoc20_223 + 1<64>
+	Mem149[rax_50 + qwLoc20_232 * 8<64>:real64] = 0.0
+	qwLoc20_232 = qwLoc20_232 + 1<64>
 l00000000000009D6:
-	vec_add(rax_30, rax_16, rax_44, 0x400<64>)
-	word64 qwLoc28_232 = 0<64>
+	vec_add(rax_33, rax_16, rax_50, 0x400<64>)
+	word64 qwLoc28_241 = 0<64>
 l0000000000000A2D:
-	branch qwLoc28_232 <u 0x400<64> l00000000000009F8
+	branch qwLoc28_241 <u 0x400<64> l00000000000009F8
 l00000000000009F8:
-	printf("%g\n", Mem161[rax_44 + qwLoc28_232 * 8<64>:word64])
-	qwLoc28_232 = qwLoc28_232 + 1<64>
+	printf("%g\n", Mem170[rax_50 + qwLoc28_241 * 8<64>:word64])
+	qwLoc28_241 = qwLoc28_241 + 1<64>
 l0000000000000A37:
 	_mm_free(rax_16)
-	_mm_free(rax_30)
-	_mm_free(rax_44)
+	_mm_free(rax_33)
+	_mm_free(rax_50)
 	return
 main_exit:
 

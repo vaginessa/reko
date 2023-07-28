@@ -317,10 +317,10 @@ void deregister_tm_clones()
 	null();
 }
 
-// 0040089C: void register_tm_clones(Register word32 r5)
+// 0040089C: void register_tm_clones(Register ptr32 r5)
 // Called from:
 //      frame_dummy
-void register_tm_clones(word32 r5)
+void register_tm_clones(ptr32 r5)
 {
 	if (r5 == 0x00 || null == null)
 		return;
@@ -339,11 +339,14 @@ void __do_global_dtors_aux()
 	}
 }
 
-// 004008E6: void frame_dummy(Register word32 r5)
-void frame_dummy(word32 r5)
+// 004008E6: void frame_dummy(Register ptr32 r5)
+void frame_dummy(ptr32 r5)
 {
 	if (null != null)
+	{
 		fn00000000(4273552, 0x004303C4);
+		r5 = 0x004303C4;
+	}
 	if (g_dw42FFFC != 0x00 && null != null)
 		fn00000000();
 	register_tm_clones(r5);

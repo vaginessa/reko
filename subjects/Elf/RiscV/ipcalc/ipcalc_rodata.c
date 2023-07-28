@@ -135,6 +135,24 @@ char g_str11A70[] = "ipcalc: bad %s prefix: %s\n"; // 0000000000011A70
 char g_str11A90[] = "%s/%u"; // 0000000000011A90
 char g_str11A98[] = "ipcalc: cannot generate network with prefix: %u\n"; // 0000000000011A98
 char g_str11AD0[] = "ipcalc: unexpected argument: %s\n"; // 0000000000011AD0
+char g_str11AF8[] = "Full Address:\t"; // 0000000000011AF8
+char g_str11B08[] = "\x1B[34m"; // 0000000000011B08
+char g_str11B10[] = "Address:\t"; // 0000000000011B10
+char g_str11B28[] = "Full Network:\t"; // 0000000000011B28
+char g_str11B38[] = "Network:\t"; // 0000000000011B38
+char g_str11B58[] = "Netmask:\t"; // 0000000000011B58
+char g_str11B68[] = "Broadcast:\t"; // 0000000000011B68
+char g_str11B78[] = "Reverse DNS:\t"; // 0000000000011B78
+char g_str11B88[] = "Address space:\t"; // 0000000000011B88
+char g_str11B98[] = "\x1B[35m"; // 0000000000011B98
+char g_str11BA0[] = "Address class:\t"; // 0000000000011BA0
+char g_str11BB0[] = "HostMin:\t"; // 0000000000011BB0
+char g_str11BC0[] = "HostMax:\t"; // 0000000000011BC0
+char g_str11BE0[] = "Hosts/Net:\t"; // 0000000000011BE0
+char g_str11BF0[] = "Country code:\t"; // 0000000000011BF0
+char g_str11C00[] = "Country:\t"; // 0000000000011C00
+char g_str11C10[] = "City:\t\t"; // 0000000000011C10
+char g_str11C18[] = "Coordinates:\t"; // 0000000000011C18
 char g_str11C28[] = "NETMASK=%s\n"; // 0000000000011C28
 char g_str11C38[] = "PREFIX=%u\n"; // 0000000000011C38
 char g_str11C48[] = "BROADCAST=%s\n"; // 0000000000011C48

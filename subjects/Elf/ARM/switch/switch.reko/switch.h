@@ -215,7 +215,7 @@ T_10: (in frame_dummy() @ 000082F8 : void)
   Class: Eq_10
   DataType: void
   OrigDataType: void
-T_11: (in r4_26 @ 000082FC : word32)
+T_11: (in r4_27 @ 000082FC : word32)
   Class: Eq_2
   DataType: word32
   OrigDataType: word32

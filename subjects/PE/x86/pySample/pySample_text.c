@@ -197,7 +197,10 @@ Eq_n fn10001388(Eq_n ecx, Eq_n edx, ptr32 ebx, ptr32 esi, word32 edi)
 	if (edx == 0x01 || edx == 0x02)
 	{
 		if (g_dw100020CC != 0x00)
+		{
 			ebp_n->tFFFFFFE4 = fn00000000(ebx_n, edx, ecx);
+			esp_n = fp - 20;
+		}
 		if (ebp_n->tFFFFFFE4 == 0x00)
 		{
 l1000147A:
@@ -237,7 +240,10 @@ l1000147A:
 		fn100011E9(esp_n->tFFFFFFF8, esp_n->tFFFFFFFC, esp_n->t0000, out ebx_n, out esi_n, out edi_n);
 		esp_n = (struct Eq_n *) ((char *) &esp_n->t0000 + 4);
 		if (g_dw100020CC != 0x00)
+		{
 			fn00000000(ebx_n, 0x00, edi_n);
+			esp_n = esp_n - 8;
+		}
 	}
 	if (esi_n == 0x00 || esi_n == 0x03)
 	{
@@ -253,7 +259,10 @@ l1000147A:
 		if (eax_n == 0x00)
 			ebp_n->tFFFFFFE4 &= eax_n;
 		if (ebp_n->tFFFFFFE4 != 0x00 && g_dw100020CC != 0x00)
+		{
 			ebp_n->tFFFFFFE4 = fn00000000(ebx_n, esi_n, edi_n);
+			esp_n = esp_n - 8;
+		}
 	}
 	goto l1000147A;
 }

@@ -9,8 +9,8 @@ void fn0000(struct Eq_n * __data)
 {
 	__data->b001D = 0x00;
 	fn4EF3();
-	__data_n->b0157 = 0x05;
-	if ((__data_n->b80EA >> 0x02 & 0x01) == 0x00)
+	__data->b0157 = 0x05;
+	if ((__data->b80EA >> 0x02 & 0x01) == 0x00)
 		fn4AC0();
 }
 

@@ -20956,12 +20956,12 @@ T_4909: (in Mem19[0x004042CC<p32>:word32] @ 00404258 : word32)
   Class: Eq_4907
   DataType: int32
   OrigDataType: word32
-T_4910: (in r0_41 @ 0040425A : word32)
-  Class: Eq_4906
+T_4910: (in r8_40 @ 0040425A : word32)
+  Class: Eq_4910
   DataType: word32
   OrigDataType: word32
-T_4911: (in r8_40 @ 0040425A : word32)
-  Class: Eq_4911
+T_4911: (in r0_41 @ 0040425A : word32)
+  Class: Eq_4906
   DataType: word32
   OrigDataType: word32
 T_4912: (in r9_42 @ 0040425A : word32)

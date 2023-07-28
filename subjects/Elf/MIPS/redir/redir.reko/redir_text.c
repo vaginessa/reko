@@ -653,15 +653,15 @@ void main(int32 r4, char * r5[], word32 r16, word32 ra)
 			slist_add(r2_n, server_new((char *) &g_ptr10000A40->a0004->t0004 + 5, g_ptr10000A40->dw012C, g_ptr10000A40->dw0554, 0x00, ra));
 			slist_add(r2_n, server_new((char *) &g_ptr10000A40->a0004->t0004 + 5, g_ptr10000A40->dw01C4, g_ptr10000A40->dw0554, 1, ra));
 			bzero((char *) fp - 328, (size_t) 16);
-			struct Eq_n * r7_n = (struct Eq_n *) <invalid>;
-			struct Eq_n * r6_n = (struct Eq_n *) <invalid>;
-			struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-			struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
+			struct Eq_n (* r7_n)[] = (struct Eq_n (*)[]) <invalid>;
+			struct Eq_n (* r6_n)[] = (struct Eq_n (*)[]) <invalid>;
+			struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+			struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
 			inet_addr(r4_n, (char *) &g_ptr10000A40->dw01C4 + 0x0011, r5_n, r6_n, r7_n, 0x02, g_ptr10000A40->w02F6);
+			struct Eq_n (* r5_n)[] = r5_n;
 			struct Eq_n * dwLoc0150_n = r2_n->ptr0008;
 			while (true)
 			{
-				struct Eq_n * r5_n;
 				struct Eq_n * r28_n = (struct Eq_n *) 0x10008860;
 				if (dwLoc0150_n == null)
 					break;
@@ -680,7 +680,7 @@ void main(int32 r4, char * r5[], word32 r16, word32 ra)
 				Eq_n dwLoc2C_n = 0x00;
 				while ((word32) (dwLoc2C_n < 32) != 0x00)
 				{
-					fp->aFFFFFED0[dwLoc2C_n] = 0x00;
+					fp->aFFFFFED0[dwLoc2C_n].u0 = 0x00;
 					dwLoc2C_n = (word32) dwLoc2C_n.u1 + 1;
 				}
 				Eq_n dwLoc28_n = 0x00;
@@ -693,47 +693,49 @@ void main(int32 r4, char * r5[], word32 r16, word32 ra)
 				for (dwLoc0150_n = r2_n->ptr0008; dwLoc0150_n != null; dwLoc0150_n = dwLoc0150_n->ptr0018)
 				{
 					Eq_n r2_n = dwLoc0150_n->t0000.u0;
-					fp->aFFFFFED0[r2_n >> 0x05] |= 1 << ((dwLoc0150_n->t0000).u0 & 0x1F);
+					fp->aFFFFFED0[r2_n >> 0x05].u0 |= 1 << ((dwLoc0150_n->t0000).u0 & 0x1F);
 					if ((word32) (dwLoc0160_n < (dwLoc0150_n->t0000).u0) != 0x00)
 						dwLoc0160_n.u0 = dwLoc0150_n->t0000.u0;
 				}
-				struct Eq_n * dwLoc0158_n;
-				for (dwLoc0158_n = r2_n->ptr0008; dwLoc0158_n != null; dwLoc0158_n = dwLoc0158_n->ptr17B8)
+				struct Eq_n (* dwLoc0158_n)[] = r2_n->ptr0008;
+				while (dwLoc0158_n != null)
 				{
-					if (dwLoc0158_n->t0000.u0 >= 0x00)
+					if (Mem561[dwLoc0158_n + 0x00:word32] >= 0x00)
 					{
-						if ((word32) (dwLoc0160_n < (dwLoc0158_n->t0000).u0) != 0x00)
-							dwLoc0160_n.u0 = dwLoc0158_n->t0000.u0;
-						if (dwLoc0158_n->dw0FAC == 0x00)
+						if (CONVERT(dwLoc0160_n < Mem561[dwLoc0158_n + 0x00:word32], bool, word32) != 0x00)
+							dwLoc0160_n = Mem561[dwLoc0158_n + 0x00:word32];
+						if (Mem573[dwLoc0158_n + 0x0FAC:word32] == 0x00)
 						{
-							Eq_n r2_n = dwLoc0158_n->t0000.u0;
-							fp->aFFFFFED0[r2_n >> 0x05] |= 1 << ((dwLoc0158_n->t0000).u0 & 0x1F);
+							word32 r2_n = Mem573[dwLoc0158_n + 0x00:word32];
+							(fp + -304)[(r2_n >>u 0x05) * 0x04] |= 1 << (Mem573[dwLoc0158_n + 0x00:word32] & 0x1F);
 						}
 						else
 						{
-							Eq_n r2_n = dwLoc0158_n->t0000.u0;
-							fp->aFFFFFF50[r2_n >> 0x05] |= 1 << ((dwLoc0158_n->t0000).u0 & 0x1F);
+							word32 r2_n = Mem573[dwLoc0158_n + 0x00:word32];
+							(fp + -0x00B0)[(r2_n >>u 0x05) * 0x04] |= 1 << (Mem573[dwLoc0158_n + 0x00:word32] & 0x1F);
 						}
 					}
-					if (dwLoc0158_n->t0004.u0 >= 0x00)
+					if (Mem615[dwLoc0158_n + 0x04:word32] >= 0x00)
 					{
-						if ((word32) (dwLoc0160_n < (dwLoc0158_n->t0004).u0) != 0x00)
-							dwLoc0160_n.u0 = dwLoc0158_n->t0004.u0;
-						if (dwLoc0158_n->dw178C == 0x00)
+						if (CONVERT(dwLoc0160_n < Mem615[dwLoc0158_n + 0x04:word32], bool, word32) != 0x00)
+							dwLoc0160_n = Mem615[dwLoc0158_n + 0x04:word32];
+						if (Mem626[dwLoc0158_n + 0x178C:word32] == 0x00)
 						{
-							Eq_n r2_n = dwLoc0158_n->t0004.u0;
-							fp->aFFFFFED0[r2_n >> 0x05] |= 1 << ((dwLoc0158_n->t0004).u0 & 0x1F);
+							word32 r2_n = Mem626[dwLoc0158_n + 0x04:word32];
+							(fp + -304)[(r2_n >>u 0x05) * 0x04] |= 1 << (Mem626[dwLoc0158_n + 0x04:word32] & 0x1F);
 						}
 						else
 						{
-							Eq_n r2_n = dwLoc0158_n->t0004.u0;
-							fp->aFFFFFF50[r2_n >> 0x05] |= 1 << ((dwLoc0158_n->t0004).u0 & 0x1F);
+							word32 r2_n = Mem626[dwLoc0158_n + 0x04:word32];
+							(fp + -0x00B0)[(r2_n >>u 0x05) * 0x04] |= 1 << (Mem626[dwLoc0158_n + 0x04:word32] & 0x1F);
 						}
 					}
+					dwLoc0158_n = Mem668[dwLoc0158_n + 0x17B8:word32];
 				}
-				if (select((word32) dwLoc0160_n.u0 + 1, fp->aFFFFFED0, 0x00, 0x00, 0x00) < 0x00)
+				r5_n = (struct Eq_n (*)[]) &fp->aFFFFFED0->u0;
+				if (select((word32) dwLoc0160_n.u0 + 1, &fp->aFFFFFED0->u0, 0x00, 0x00, 0x00) < 0x00)
 				{
-					r5_n = (struct Eq_n *) <invalid>;
+					r5_n = (struct Eq_n (*)[]) <invalid>;
 					r28_n = (struct Eq_n *) 0x10008860;
 					if (*__errno_location() == 4)
 						continue;
@@ -751,9 +753,9 @@ void main(int32 r4, char * r5[], word32 r16, word32 ra)
 				struct Eq_n * dwLoc0150_n;
 				for (dwLoc0150_n = r2_n->ptr0008; dwLoc0150_n != null; dwLoc0150_n = dwLoc0150_n->ptr0018)
 				{
-					if ((fp->aFFFFFED0[dwLoc0150_n->t0000.u0 >> 0x05] >> ((dwLoc0150_n->t0000).u0 & 0x1F) & 0x01) != 0x00)
+					if ((fp->aFFFFFED0[dwLoc0150_n->t0000.u0 >> 0x05].u0 >> ((dwLoc0150_n->t0000).u0 & 0x1F) & 0x01) != 0x00)
 					{
-						struct Eq_n * r2_n;
+						struct Eq_n (* r2_n)[];
 						r28_n->ptrFFFF80D8();
 						r28_n = (struct Eq_n *) 0x10008860;
 						if (r2_n != null)
@@ -772,69 +774,69 @@ void main(int32 r4, char * r5[], word32 r16, word32 ra)
 						}
 					}
 				}
-				struct Eq_n * dwLoc0158_n;
-				for (dwLoc0158_n = r2_n->ptr0008; dwLoc0158_n != null; dwLoc0158_n = dwLoc0158_n->ptr17B8)
+				struct Eq_n (* dwLoc0158_n)[] = r2_n->ptr0008;
+				while (dwLoc0158_n != null)
 				{
-					if (dwLoc0158_n != null && ((dwLoc0158_n->t0000).u0 >= 0x00 && ((fp->aFFFFFED0)[(dwLoc0158_n->t0000).u0 >> 0x05] >> ((dwLoc0158_n->t0000).u0 & 0x1F) & 0x01) != 0x00))
+					if (dwLoc0158_n != null && (Mem878[dwLoc0158_n + 0x00:word32] >= 0x00 && ((fp + -304)[(Mem878[dwLoc0158_n + 0x00:word32] >>u 0x05) * 0x04] >> (Mem878[dwLoc0158_n + 0x00:word32] & 0x1F) & 0x01) != 0x00))
 					{
 						r28_n->ptrFFFF8108();
 						r28_n = (struct Eq_n *) 0x10008860;
-						if (dwLoc0158_n->dw07D8 <= 0x00)
+						if (Mem878[dwLoc0158_n + 2008:word32] <= 0x00)
 						{
-							if (dwLoc0158_n->t0000.u0 >= 0x00)
+							if (Mem878[dwLoc0158_n + 0x00:word32] >= 0x00)
 							{
-								close(dwLoc0158_n->t0000.u0);
-								dwLoc0158_n->t0000.u0 = -1;
-								r5_n = (struct Eq_n *) <invalid>;
+								close(Mem878[dwLoc0158_n + 0x00:word32]);
+								Mem950[dwLoc0158_n + 0x00:word32] = -1;
+								r5_n = (struct Eq_n (*)[]) <invalid>;
 								r28_n = (struct Eq_n *) 0x10008860;
 							}
 						}
 						else
 						{
-							<anonymous> * r2_n = dwLoc0158_n->ptr17C0;
+							word32 r2_n = Mem878[dwLoc0158_n + 6080:word32];
 							r2_n();
 							word32 r25_n;
 							r5_n = client_send_request(dwLoc0158_n, ra, out r25_n);
 							r28_n = (struct Eq_n *) 0x10008860;
 						}
 					}
-					if (dwLoc0158_n != null && ((dwLoc0158_n->t0004).u0 >= 0x00 && ((fp->aFFFFFED0)[(dwLoc0158_n->t0004).u0 >> 0x05] >> ((dwLoc0158_n->t0004).u0 & 0x1F) & 0x01) != 0x00))
+					if (dwLoc0158_n != null && (Mem952[dwLoc0158_n + 0x04:word32] >= 0x00 && ((fp + -304)[(Mem952[dwLoc0158_n + 0x04:word32] >>u 0x05) * 0x04] >> (Mem952[dwLoc0158_n + 0x04:word32] & 0x1F) & 0x01) != 0x00))
 					{
 						r28_n->ptrFFFF81F0();
 						r28_n = (struct Eq_n *) 0x10008860;
-						if (dwLoc0158_n->dw178C <= 0x00)
+						if (Mem952[dwLoc0158_n + 0x178C:word32] <= 0x00)
 						{
-							if (dwLoc0158_n->t0004.u0 >= 0x00)
+							if (Mem952[dwLoc0158_n + 0x04:word32] >= 0x00)
 							{
-								close(dwLoc0158_n->t0004.u0);
-								dwLoc0158_n->t0004.u0 = -1;
-								r5_n = (struct Eq_n *) <invalid>;
+								close(Mem952[dwLoc0158_n + 0x04:word32]);
+								Mem1013[dwLoc0158_n + 0x04:word32] = -1;
+								r5_n = (struct Eq_n (*)[]) <invalid>;
 								r28_n = (struct Eq_n *) 0x10008860;
 							}
 						}
 						else
 						{
-							void (* r2_n)(struct Eq_n *) = dwLoc0158_n->ptr17C4;
+							word32 r2_n = Mem952[dwLoc0158_n + 0x17C4:word32];
 							word32 r25_n;
 							r2_n();
 							r28_n = (struct Eq_n *) 0x10008860;
 						}
 					}
-					if (dwLoc0158_n != null && ((dwLoc0158_n->t0000).u0 >= 0x00 && ((fp->aFFFFFF50)[(dwLoc0158_n->t0000).u0 >> 0x05] >> ((dwLoc0158_n->t0000).u0 & 0x1F) & 0x01) != 0x00))
+					if (dwLoc0158_n != null && (Mem1015[dwLoc0158_n + 0x00:word32] >= 0x00 && ((fp + -0x00B0)[(Mem1015[dwLoc0158_n + 0x00:word32] >>u 0x05) * 0x04] >> (Mem1015[dwLoc0158_n + 0x00:word32] & 0x1F) & 0x01) != 0x00))
 					{
-						void (* r2_n)(struct Eq_n *) = dwLoc0158_n->ptr17C4;
+						word32 r2_n = Mem1015[dwLoc0158_n + 0x17C4:word32];
 						word32 r25_n;
 						r2_n();
 						r28_n = (struct Eq_n *) 0x10008860;
 					}
-					if (dwLoc0158_n != null && ((dwLoc0158_n->t0004).u0 >= 0x00 && ((fp->aFFFFFF50)[(dwLoc0158_n->t0004).u0 >> 0x05] >> ((dwLoc0158_n->t0004).u0 & 0x1F) & 0x01) != 0x00))
+					if (dwLoc0158_n != null && (Mem1049[dwLoc0158_n + 0x04:word32] >= 0x00 && ((fp + -0x00B0)[(Mem1049[dwLoc0158_n + 0x04:word32] >>u 0x05) * 0x04] >> (Mem1049[dwLoc0158_n + 0x04:word32] & 0x1F) & 0x01) != 0x00))
 					{
 						r28_n->ptrFFFF8150();
 						r28_n = (struct Eq_n *) 0x10008860;
 					}
 					if (dwLoc0158_n != null)
 					{
-						if ((dwLoc0158_n->t0004.u0 >= 0x00 || (dwLoc0158_n->t0000).u0 >= 0x00) && (((dwLoc0158_n->t0004).u0 >= 0x00 || ((dwLoc0158_n->t0000).u0 < 0x00 || dwLoc0158_n->dw178C > 0x00)) && ((dwLoc0158_n->t0000).u0 >= 0x00 || ((dwLoc0158_n->t0004).u0 < 0x00 || dwLoc0158_n->dw0FAC > 0x00))))
+						if ((Mem1049[dwLoc0158_n + 0x04:word32] >= 0x00 || Mem1049[dwLoc0158_n + 0x00:word32] >= 0x00) && ((Mem1049[dwLoc0158_n + 0x04:word32] >= 0x00 || (Mem1049[dwLoc0158_n + 0x00:word32] < 0x00 || Mem1049[dwLoc0158_n + 0x178C:word32] > 0x00)) && (Mem1049[dwLoc0158_n + 0x00:word32] >= 0x00 || (Mem1049[dwLoc0158_n + 0x04:word32] < 0x00 || Mem1049[dwLoc0158_n + 0x0FAC:word32] > 0x00))))
 						{
 							int32 r2_n;
 							r28_n->ptrFFFF8038();
@@ -850,6 +852,7 @@ void main(int32 r4, char * r5[], word32 r16, word32 ra)
 l00401AA4:
 					if (dwLoc0158_n == null)
 						break;
+					dwLoc0158_n = Mem1153[dwLoc0158_n + 0x17B8:word32];
 				}
 			}
 			r28_n->ptrFFFF8130();
@@ -871,7 +874,7 @@ l00401AA4:
 void client_new(struct Eq_n * r4, struct Eq_n * r5, int32 r6, int32 r7, word32 ra)
 {
 	ptr32 fp;
-	struct Eq_n * r2_n = malloc((size_t) 6100);
+	struct Eq_n (* r2_n)[] = malloc((size_t) 6100);
 	if (r2_n == null)
 	{
 		word32 r5_n;
@@ -882,52 +885,52 @@ void client_new(struct Eq_n * r4, struct Eq_n * r5, int32 r6, int32 r7, word32 r
 	}
 	else
 	{
-		bzero(&r2_n->w1798, (size_t) 16);
-		r2_n->w1798 = 0x02;
-		r2_n->w179A = r4->w0002;
-		r2_n->dw179C = r4->dw0004;
-		r2_n->t0000.u0 = (int32) accept(r6, &r2_n->w1798, fp + -32);
-		r2_n->w17A8 = 0x02;
-		r2_n->w17AA = r5->w0002;
-		r2_n->dw17AC = r5->dw0004;
-		r2_n->dw1790 = r7;
-		r2_n->t0004.u0 = (int32) open_destination(&r2_n->w17A8, ra);
-		if (r2_n->t0004.u0 < 0x00)
+		bzero(r2_n + 6040, SLICE(16, size_t, 0));
+		Mem52[r2_n + 6040:word16] = 0x02;
+		Mem56[r2_n + 0x179A:word16] = Mem52[r4 + 0x02:uint16];
+		Mem60[r2_n + 6044:word32] = Mem56[r4 + 0x04:word32];
+		Mem77[r2_n + 0x00:word32] = accept(r6, r2_n + 6040, fp + -32);
+		Mem82[r2_n + 6056:word16] = 0x02;
+		Mem86[r2_n + 0x17AA:word16] = Mem82[r5 + 0x02:uint16];
+		Mem90[r2_n + 6060:word32] = Mem86[r5 + 0x04:word32];
+		Mem93[r2_n + 0x1790:word32] = r7;
+		Mem108[r2_n + 0x04:word32] = open_destination(r2_n + 6056, ra);
+		if (Mem108[r2_n + 0x04:word32] < 0x00)
 		{
 			word32 r5_n;
 			word32 r6_n;
 			word32 r7_n;
 			word32 r25_n;
 			print_log(1, 0x00409F28, out r5_n, out r6_n, out r7_n, out r25_n);
-			close(r2_n->t0000.u0);
+			close(Mem247[r2_n + 0x00:word32]);
 			free(r2_n);
 		}
 		else
 		{
-			inet_ntoa(r2_n->dw179C);
+			inet_ntoa(Mem108[r2_n + 6044:word32]);
 			word32 r5_n;
 			word32 r6_n;
 			word32 r7_n;
 			word32 r25_n;
 			print_log(3, 0x00409F60, out r5_n, out r6_n, out r7_n, out r25_n);
-			r2_n->dw07D8 = 0x00;
-			r2_n->dw0FAC = 0x00;
-			r2_n->dw178C = 0x00;
-			r2_n->ptr0FB0 = (void *) (&r2_n->dw07D8 + 1);
-			r2_n->ptr1788 = (char *) &r2_n->ptr0FB4 + 4;
-			r2_n->dw1794 = 0x00;
-			r2_n->ptr0FB4 = null;
-			r2_n->ptr17BC = null;
-			r2_n->ptr17B8 = null;
-			r2_n->t17C8 = time(null);
-			r2_n->t17CC = time(null);
-			r2_n->t17D0 = time(null);
+			Mem145[r2_n + 2008:word32] = 0x00;
+			Mem147[r2_n + 0x0FAC:word32] = 0x00;
+			Mem149[r2_n + 0x178C:word32] = 0x00;
+			Mem153[r2_n + 0x0FB0:word32] = r2_n + 2012;
+			Mem157[r2_n + 0x1788:word32] = r2_n + 4024;
+			Mem159[r2_n + 6036:word32] = 0x00;
+			Mem161[r2_n + 4020:word32] = 0x00;
+			Mem163[r2_n + 6076:word32] = 0x00;
+			Mem165[r2_n + 0x17B8:word32] = 0x00;
+			Mem178[r2_n + 6088:word32] = time(null);
+			Mem191[r2_n + 0x17CC:word32] = time(null);
+			Mem204[r2_n + 6096:word32] = time(null);
 			if (r7 != 0x00)
 			{
 				if (r7 == 1)
 				{
-					r2_n->ptr17C0 = client_copy_request;
-					r2_n->ptr17C4 = client_parse_reply;
+					Mem218[r2_n + 6080:word32] = client_copy_request;
+					Mem221[r2_n + 0x17C4:word32] = client_parse_reply;
 					word32 r6_n;
 					word32 r7_n;
 					client_prepare_connect(r2_n, ra, out r6_n, out r7_n);
@@ -937,22 +940,24 @@ void client_new(struct Eq_n * r4, struct Eq_n * r5, int32 r6, int32 r7, word32 r
 			}
 			else
 			{
-				r2_n->ptr17C0 = client_parse_request;
-				r2_n->ptr17C4 = client_copy_reply;
+				Mem210[r2_n + 6080:word32] = client_parse_request;
+				Mem213[r2_n + 0x17C4:word32] = client_copy_reply;
 			}
 		}
 	}
 }
 
-// 00402028: Register word32 client_prepare_connect(Register (ptr32 Eq_n) r4, Register word32 ra, Register out ptr32 r6Out, Register out ptr32 r7Out)
+// 00402028: Register word32 client_prepare_connect(Register (ptr32 (arr (struct "Eq_n"))) r4, Register word32 ra, Register out ptr32 r6Out, Register out ptr32 r7Out)
 // Called from:
 //      client_new
-word32 client_prepare_connect(struct Eq_n * r4, word32 ra, ptr32 & r6Out, ptr32 & r7Out)
+word32 client_prepare_connect(struct Eq_n (* r4)[], word32 ra, ptr32 & r6Out, ptr32 & r7Out)
 {
 	ptr32 fp;
-	getsockopt(r4->t0000.u0, 0x00, 80, &r4->w1798, fp + -24, 0x10008860, 16);
-	inet_ntoa(r4->dw179C);
-	inet_ntoa(r4->dw179C);
+	word32 r4_n = Mem24[r4 + 0x00:word32];
+	getsockopt(r4_n, 0x00, 80, r4 + 6040, fp + -24, 0x10008860, 16);
+	word32 r4_n = Mem24[r4 + 6044:word32];
+	inet_ntoa(r4_n, r4_n, 0x00, 80, r4 + 6040);
+	inet_ntoa(r4_n, Mem24[r4 + 6044:word32]);
 	Eq_n r2_n = snprintf(fp + -0x0118, (size_t) 0x0100, "CONNECT %s:%d HTTP/1.1\r\nHost: %s:%d\r\n\r\n", 0x00);
 	Eq_n dwLoc18_n = r2_n;
 	if ((word32) (r2_n < 0x0100) == 0x00)
@@ -960,7 +965,7 @@ word32 client_prepare_connect(struct Eq_n * r4, word32 ra, ptr32 & r6Out, ptr32 
 	ptr32 r7_n;
 	word32 r5_n;
 	ptr32 r6_n;
-	add_to_request(r4, r4->ptr0FB0, fp + -0x0118, dwLoc18_n, ra, out r5_n, out r6_n, out r7_n);
+	add_to_request(r4, Mem89[r4 + 0x0FB0:word32], fp + -0x0118, dwLoc18_n, ra, out r5_n, out r6_n, out r7_n);
 	r6Out = r6_n;
 	r7Out = r7_n;
 	return r5_n;
@@ -974,22 +979,22 @@ void client_copy_request(struct Eq_n * r4)
 	r4->t0FAC = r4->t07D8;
 }
 
-// 00402244: void client_parse_request(Register (ptr32 Eq_n) r4, Register word32 ra)
-void client_parse_request(struct Eq_n * r4, word32 ra)
+// 00402244: void client_parse_request(Register (ptr32 (arr (struct "Eq_n"))) r4, Register word32 ra)
+void client_parse_request(struct Eq_n (* r4)[], word32 ra)
 {
 	ptr32 fp;
 	int8 bLoc0810;
-	int8 * dwLoc40_n = (char *) &r4->t0004 + 4;
-	int32 r2_n = r4->dw07D8;
-	void * dwLoc28_n = &r4->dw07D8 + 1;
-	struct Eq_n * dwLoc20_n = r4->ptr0FB4;
+	word32 dwLoc40_n = r4 + 8;
+	word32 r2_n = Mem19[r4 + 2008:word32];
+	word32 dwLoc28_n = r4 + 2012;
+	word32 dwLoc20_n = Mem28[r4 + 4020:word32];
 	while (r2_n > 0x00)
 	{
 		int8 * r2_n = get_a_line(fp + -0x0810, dwLoc40_n, fp + -0x0818);
 		int32 dwLoc1C_n = 0x00;
 		if ((word32) bLoc0810 == 0x0A || (word32) bLoc0810 == 0x0D)
 			dwLoc1C_n = 1;
-		int32 r2_n = r4->dw1794;
+		word32 r2_n = Mem73[r4 + 6036:word32];
 		if (r2_n != 1)
 		{
 			if ((word32) (r2_n < 2) != 0x00)
@@ -998,14 +1003,14 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 				{
 					if (dwLoc1C_n == 0x00)
 					{
-						if (r4->ptr0FB4 != null)
+						if (Mem76[r4 + 4020:word32] != 0x00)
 						{
 							word32 r25_n;
 							word32 r7_n;
 							word32 r6_n;
 							word32 r5_n;
 							print_log(4, 0x0040A008, out r5_n, out r6_n, out r7_n, out r25_n);
-							struct Eq_n * r2_n = r4->ptr0FB4;
+							word32 r2_n = Mem76[r4 + 4020:word32];
 							dwLoc20_n = r2_n;
 							if (request_parse_line(r2_n, fp + -0x0810, ra) == 0x00)
 							{
@@ -1020,9 +1025,9 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 						}
 						else
 							dwLoc20_n = request_new(fp + -0x0810, ra);
-						r4->ptr0FB4 = dwLoc20_n;
+						Mem457[r4 + 4020:word32] = dwLoc20_n;
 						if (dwLoc20_n != null)
-							r4->dw1794 = 1;
+							Mem498[r4 + 6036:word32] = 1;
 						else
 						{
 							word32 r7_n;
@@ -1034,7 +1039,7 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 							word32 r6_n;
 							word32 r5_n;
 							add_to_request(r4, dwLoc28_n, fp + -0x0810, 0x00, ra, out r5_n, out r6_n, out r7_n);
-							r4->dw1794 = 2;
+							Mem495[r4 + 6036:word32] = 2;
 						}
 					}
 					else
@@ -1056,7 +1061,7 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 					dwLoc28_n = add_to_request(r4, dwLoc28_n, fp + -0x0810, 0x00, ra, out r5_n, out r6_n, out r7_n);
 					dwLoc20_n->dw0554 = dwLoc20_n->dw0554;
 					if (dwLoc20_n->dw0554 == 0x00)
-						r4->dw1794 = 0x00;
+						Mem366[r4 + 6036:word32] = 0x00;
 				}
 			}
 			else
@@ -1068,9 +1073,9 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 				if (dwLoc1C_n != 0x00)
 				{
 					if (dwLoc20_n != null && dwLoc20_n->dw0554 == 0x00)
-						r4->dw1794 = 0x00;
+						Mem339[r4 + 6036:word32] = 0x00;
 					else
-						r4->dw1794 = 3;
+						Mem337[r4 + 6036:word32] = 3;
 				}
 				else if (false && strncasecmp("Content-Length: ", fp + -0x0810, 0x0A) == 0x00)
 					request_get_content_length(dwLoc20_n, fp + -0x0810, ra);
@@ -1085,7 +1090,7 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 				word32 r6_n;
 				word32 r7_n;
 				print_log(2, 4235444, out r5_n, out r6_n, out r7_n, out r25_n);
-				r4->dw1794 = 0x00;
+				Mem280[r4 + 6036:word32] = 0x00;
 				return;
 			}
 			if (false && strncasecmp(fp + -0x0810, "host: ", 6) == 0x00)
@@ -1109,7 +1114,7 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 					word32 r6_n;
 					word32 r7_n;
 					dwLoc28_n = add_to_request(r4, request_add_lines(dwLoc20_n, r4, add_to_request(r4, dwLoc28_n, &dwLoc20_n->b0214, (uint32) strlen(&dwLoc20_n->b0214), ra, out r5_n, out r6_n, out r7_n)), fp + -0x0810, 0x00, ra, out r5_n, out r6_n, out r7_n);
-					r4->dw1794 = 2;
+					Mem248[r4 + 6036:word32] = 2;
 				}
 			}
 			else if (false && strncasecmp("content-length: ", fp + -0x0810, 0x0A) == 0x00)
@@ -1124,16 +1129,16 @@ void client_parse_request(struct Eq_n * r4, word32 ra)
 	}
 }
 
-// 00402A60: Register (ptr32 void) add_to_request(Register (ptr32 Eq_n) r4, Register (ptr32 void) r5, Register (ptr32 void) r6, Register Eq_n r7, Register word32 ra, Register out (ptr32 Eq_n) r5Out, Register out (ptr32 Eq_n) r6Out, Register out (ptr32 Eq_n) r7Out)
+// 00402A60: Register (ptr32 (arr (struct "Eq_n"))) add_to_request(Register (ptr32 (arr (struct "Eq_n"))) r4, Register (ptr32 (arr (struct "Eq_n"))) r5, Register (ptr32 void) r6, Register Eq_n r7, Register word32 ra, Register out (ptr32 (arr (struct "Eq_n"))) r5Out, Register out (ptr32 (arr (struct "Eq_n"))) r6Out, Register out (ptr32 (arr (struct "Eq_n"))) r7Out)
 // Called from:
 //      client_prepare_connect
 //      client_parse_request
-void * add_to_request(struct Eq_n * r4, void * r5, void * r6, Eq_n r7, word32 ra, struct Eq_n & r5Out, struct Eq_n & r6Out, struct Eq_n & r7Out)
+struct Eq_n (* add_to_request)[](struct Eq_n (* r4)[], struct Eq_n (* r5)[], void * r6, Eq_n r7, word32 ra, struct Eq_n (& r5Out, struct Eq_n (& r6Out, struct Eq_n (& r7Out)
 {
-	struct Eq_n * r7_n;
-	struct Eq_n * r6_n;
-	void * r2_n;
-	struct Eq_n * r5_n;
+	struct Eq_n (* r7_n)[];
+	struct Eq_n (* r6_n)[];
+	struct Eq_n (* r2_n)[];
+	struct Eq_n (* r5_n)[];
 	if (r5 == null)
 	{
 		word32 r25_n;
@@ -1142,20 +1147,20 @@ void * add_to_request(struct Eq_n * r4, void * r5, void * r6, Eq_n r7, word32 ra
 	}
 	else if (r6 != null && r7 > 0x00)
 	{
-		r4->dw0FAC = (word32) r7.u0 + r4->dw0FAC;
-		if ((word32) (r4->dw0FAC < 2000) != 0x00)
+		Mem51[r4 + 0x0FAC:word32] = Mem21[r4 + 0x0FAC:word32] + r7;
+		if (CONVERT(Mem51[r4 + 0x0FAC:word32] < 2000, bool, word32) != 0x00)
 		{
 			memcpy(r5, r6, (size_t) r7);
-			r7_n = (struct Eq_n *) <invalid>;
-			r6_n = (struct Eq_n *) <invalid>;
-			r5_n = (struct Eq_n *) <invalid>;
+			r7_n = (struct Eq_n (*)[]) <invalid>;
+			r6_n = (struct Eq_n (*)[]) <invalid>;
+			r5_n = (struct Eq_n (*)[]) <invalid>;
 			r2_n = r5 + r7;
 		}
 		else
 		{
 			word32 r25_n;
 			print_log(1, 0x0040A148, out r5_n, out r6_n, out r7_n, out r25_n);
-			r4->dw0FAC = 0x00;
+			Mem71[r4 + 0x0FAC:word32] = 0x00;
 			r2_n = null;
 		}
 	}
@@ -1207,34 +1212,36 @@ int8 * get_a_line(byte * r4, int8 * r5, int32 * r6)
 void client_read_request(struct Eq_n * r4)
 {
 	r4->t17CC = time(null);
-	struct Eq_n * r7_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r6_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
+	struct Eq_n (* r7_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r6_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
 	r4->dw07D8 = recv(0x00, r4_n, r4->dw0000, r5_n, &r4->dw0000 + 2, r6_n, 1744, r7_n, 0x00004000, 0x10008860);
 }
 
-// 00402EF8: Register (ptr32 Eq_n) client_send_request(Register (ptr32 Eq_n) r4, Register word32 ra, Register out (ptr32 Eq_n) r25Out)
+// 00402EF8: Register (ptr32 (arr (struct "Eq_n"))) client_send_request(Register (ptr32 (arr (struct "Eq_n"))) r4, Register word32 ra, Register out (ptr32 (arr (struct "Eq_n"))) r25Out)
 // Called from:
 //      main
 //      client_new
-struct Eq_n * client_send_request(struct Eq_n * r4, word32 ra, struct Eq_n & r25Out)
+struct Eq_n (* client_send_request)[](struct Eq_n (* r4)[], word32 ra, struct Eq_n (& r25Out)
 {
-	r4->t17CC = time(null);
-	struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r25_n = (struct Eq_n *) <invalid>;
-	if (r4->dw0FAC > 0x00)
+	Mem29[r4 + 0x17CC:word32] = time(null);
+	struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r25_n)[] = (struct Eq_n (*)[]) <invalid>;
+	if (Mem29[r4 + 0x0FAC:word32] > 0x00)
 	{
-		int32 r2_n = send(r4->t0004.u0, r4->ptr0FB0, r4, r4->dw0FAC, 0x00);
-		if (r2_n == r4->dw0FAC)
+		word32 r5_n = Mem29[r4 + 0x0FB0:word32];
+		word32 r2_n = send(Mem29[r4 + 0x04:word32], r5_n, r4, Mem29[r4 + 0x0FAC:word32], 0x00);
+		r5_n = r5_n;
+		if (r2_n == Mem48[r4 + 0x0FAC:word32])
 		{
-			r4->dw0FAC = 0x00;
-			r4->ptr0FB0 = (void *) (&r4->dw07D8 + 1);
+			Mem82[r4 + 0x0FAC:word32] = 0x00;
+			Mem86[r4 + 0x0FB0:word32] = r4 + 2012;
 		}
 		else
 		{
-			r4->ptr0FB0 = (void *) ((char *) r4->ptr0FB0 + r2_n);
-			r4->dw0FAC -= r2_n;
+			Mem57[r4 + 0x0FB0:word32] = Mem48[r4 + 0x0FB0:word32] + r2_n;
+			Mem63[r4 + 0x0FAC:word32] = Mem57[r4 + 0x0FAC:word32] - r2_n;
 			word32 r6_n;
 			word32 r7_n;
 			print_log(4, 0x0040A174, out r5_n, out r6_n, out r7_n, out r25_n);
@@ -1267,10 +1274,10 @@ void client_copy_reply(struct Eq_n * r4)
 	if (r4->dw178C > 0x00)
 	{
 		r4->t17D0 = time(null);
-		struct Eq_n * r7_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r6_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
+		struct Eq_n (* r7_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r6_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
 		int32 r2_n = send(0x00, r4_n, r4->dw0000, r5_n, r4->ptr1788, r6_n, r4, r4->dw178C, r7_n, 0x00);
 		if (r2_n == r4->dw178C)
 		{
@@ -1339,38 +1346,38 @@ word32 client_check_reply_http(struct Eq_n * r4)
 	return r2_n;
 }
 
-// 004036BC: void client_close(Register (ptr32 Eq_n) r4)
+// 004036BC: void client_close(Register (ptr32 (arr (struct "Eq_n"))) r4)
 // Called from:
 //      client_destroy
 //      clist_close_all
-void client_close(struct Eq_n * r4)
+void client_close(struct Eq_n (* r4)[])
 {
 	if (r4 != null)
 	{
-		if (r4->t0000.u0 >= 0x00)
+		if (Mem15[r4 + 0x00:word32] >= 0x00)
 		{
-			close(r4->t0000.u0);
-			r4->t0000.u0 = -1;
+			close(Mem15[r4 + 0x00:word32]);
+			Mem29[r4 + 0x00:word32] = -1;
 		}
-		if (r4->t0004.u0 >= 0x00)
+		if (Mem31[r4 + 0x04:word32] >= 0x00)
 		{
-			close(r4->t0004.u0);
-			r4->t0004.u0 = -1;
+			close(Mem31[r4 + 0x04:word32]);
+			Mem47[r4 + 0x04:word32] = -1;
 		}
 	}
 }
 
-// 00403794: Register (ptr32 Eq_n) client_destroy(Register (ptr32 Eq_n) r4, Register word32 ra)
+// 00403794: Register (ptr32 (arr (struct "Eq_n"))) client_destroy(Register (ptr32 (arr (struct "Eq_n"))) r4, Register word32 ra)
 // Called from:
 //      main
 //      clist_delete
-struct Eq_n * client_destroy(struct Eq_n * r4, word32 ra)
+struct Eq_n (* client_destroy)[](struct Eq_n (* r4)[], word32 ra)
 {
 	client_close(r4);
-	if (r4->ptr0FB4 != null)
-		request_destroy(r4->ptr0FB4);
+	if (Mem15[r4 + 4020:word32] != 0x00)
+		request_destroy(Mem15[r4 + 4020:word32]);
 	free(r4);
-	return (struct Eq_n *) <invalid>;
+	return (struct Eq_n (*)[]) <invalid>;
 }
 
 // 00403840: void client_check_activ(Register (ptr32 Eq_n) r4, Register Eq_n r5, Register word32 ra)
@@ -1431,15 +1438,15 @@ int32 open_destination(struct sockaddr * r4, word32 ra)
 	return r2_n;
 }
 
-// 00403C00: Register (ptr32 Eq_n) clist_new(Register word32 ra, Register out (ptr32 Eq_n) r4Out, Register out (ptr32 Eq_n) r5Out)
+// 00403C00: Register (ptr32 Eq_n) clist_new(Register word32 ra, Register out (ptr32 (arr (struct "Eq_n"))) r4Out, Register out (ptr32 (arr (struct "Eq_n"))) r5Out)
 // Called from:
 //      main
-struct Eq_n * clist_new(word32 ra, struct Eq_n & r4Out, struct Eq_n & r5Out)
+struct Eq_n * clist_new(word32 ra, struct Eq_n (& r4Out, struct Eq_n (& r5Out)
 {
 	struct Eq_n * r2_n;
 	struct Eq_n * r2_n = malloc((size_t) 0x0C);
-	struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
+	struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
 	if (r2_n == null)
 	{
 		word32 r6_n;
@@ -1460,42 +1467,42 @@ struct Eq_n * clist_new(word32 ra, struct Eq_n & r4Out, struct Eq_n & r5Out)
 	return r2_n;
 }
 
-// 00403CBC: Register int32 clist_add(Register (ptr32 Eq_n) r4, Register (ptr32 Eq_n) r5, Register out ptr32 r5Out)
+// 00403CBC: Register int32 clist_add(Register (ptr32 Eq_n) r4, Register (ptr32 (arr (struct "Eq_n"))) r5, Register out (ptr32 (arr Eq_n)) r5Out)
 // Called from:
 //      main
-int32 clist_add(struct Eq_n * r4, struct Eq_n * r5, ptr32 & r5Out)
+int32 clist_add(struct Eq_n * r4, struct Eq_n (* r5)[], Eq_n (& r5Out)
 {
 	if (r4->ptr0008 != null)
 	{
-		r4->ptr0008->ptr17BC = r5;
-		r5->ptr17B8 = r4->ptr0008;
+		Mem21[Mem15[r4 + 0x08:word32] + 6076:word32] = r5;
+		Mem25[r5 + 0x17B8:word32] = Mem21[r4 + 0x08:word32];
 	}
-	r5->ptr17BC = null;
-	r4->ptr0008 = r5;
+	Mem29[r5 + 6076:word32] = 0x00;
+	r4->ptr0008 = (Eq_n (*)[]) r5;
 	++r4->dw0000;
 	if ((word32) (r4->dw0004 < r4->dw0000) != 0x00)
 		r4->dw0004 = r4->dw0000;
 	int32 r2_n = r4->dw0000;
-	r5Out = <invalid>;
+	r5Out = (Eq_n (*)[]) <invalid>;
 	return r2_n;
 }
 
-// 00403DBC: Register (ptr32 Eq_n) clist_remove(Register (ptr32 Eq_n) r4, Register (ptr32 Eq_n) r5)
+// 00403DBC: Register (ptr32 (arr (struct "Eq_n"))) clist_remove(Register (ptr32 Eq_n) r4, Register (ptr32 (arr (struct "Eq_n"))) r5)
 // Called from:
 //      clist_delete
-struct Eq_n * clist_remove(struct Eq_n * r4, struct Eq_n * r5)
+struct Eq_n (* clist_remove)[](struct Eq_n * r4, struct Eq_n (* r5)[])
 {
 	if (r5 != null)
 	{
 		if (r5 == r4->ptr0008)
-			r4->ptr0008 = r5->ptr17B8;
+			Mem28[r4 + 0x08:word32] = Mem15[r5 + 0x17B8:word32];
 		else
-			r5->ptr17BC->ptr17B8 = r5->ptr17B8;
-		if (r5->ptr17B8 != null)
-			r5->ptr17B8->ptr17BC = r5->ptr17BC;
+			Mem24[Mem15[r5 + 6076:word32] + 0x17B8:word32] = Mem15[r5 + 0x17B8:word32];
+		if (Mem30[r5 + 0x17B8:word32] != 0x00)
+			Mem37[Mem30[r5 + 0x17B8:word32] + 6076:word32] = Mem30[r5 + 6076:word32];
 		r4->dw0000 += -1;
 	}
-	return (struct Eq_n *) <invalid>;
+	return (struct Eq_n (*)[]) <invalid>;
 }
 
 // 00403EC0: void clist_find_fdin(Register (ptr32 Eq_n) r4, Register word32 r5)
@@ -1514,10 +1521,10 @@ void clist_find_fdout(struct Eq_n * r4, word32 r5)
 		dwLoc10_n = dwLoc10_n->ptr17B8;
 }
 
-// 00403FF8: void clist_delete(Register (ptr32 Eq_n) r4, Register (ptr32 Eq_n) r5, Register word32 ra)
+// 00403FF8: void clist_delete(Register (ptr32 Eq_n) r4, Register (ptr32 (arr (struct "Eq_n"))) r5, Register word32 ra)
 // Called from:
 //      clist_destroy_all
-void clist_delete(struct Eq_n * r4, struct Eq_n * r5, word32 ra)
+void clist_delete(struct Eq_n * r4, struct Eq_n (* r5)[], word32 ra)
 {
 	clist_remove(r4, r5);
 	client_destroy(r5, ra);
@@ -1528,9 +1535,12 @@ void clist_delete(struct Eq_n * r4, struct Eq_n * r5, word32 ra)
 //      clist_destroy
 void clist_close_all(struct Eq_n * r4, word32 ra)
 {
-	struct Eq_n * dwLoc18_n;
-	for (dwLoc18_n = r4->ptr0008; dwLoc18_n != null; dwLoc18_n = dwLoc18_n->ptr17B8)
+	struct Eq_n (* dwLoc18_n)[] = r4->ptr0008;
+	while (dwLoc18_n != null)
+	{
 		client_close(dwLoc18_n);
+		dwLoc18_n = Mem20[dwLoc18_n + 0x17B8:word32];
+	}
 }
 
 // 00404108: void clist_destroy_all(Register (ptr32 Eq_n) r4, Register word32 ra)
@@ -1629,8 +1639,8 @@ void request_save_line(struct Eq_n * r4, void * r5, word32 r6, word32 ra)
 	else
 	{
 		++r4->dw0558;
-		r4->a0004[r4->dw0558 * 0x04 + 1040] = (int8) malloc((size_t) r6);
-		if (r4->a0004[r4->dw0558 * 0x04 + 1040] == 0x00)
+		*((char *) &r4->t0004 + (r4->dw0558 * 0x04 + 1040)) = malloc((size_t) r6);
+		if (*((char *) &r4->t0004 + (r4->dw0558 * 0x04 + 1040)) == 0x00)
 		{
 			word32 r5_n;
 			word32 r6_n;
@@ -1641,8 +1651,8 @@ void request_save_line(struct Eq_n * r4, void * r5, word32 r6, word32 ra)
 		}
 		else
 		{
-			r4->a0004[r4->dw0558 + 0x0510] = bArg0B_n;
-			memcpy(r4->a0004[r4->dw0558 * 0x04 + 1040], r5, (size_t) r6);
+			*((char *) &r4->t0004 + (r4->dw0558 + 0x0510)) = (<unknown>*) bArg0B_n;
+			memcpy(*((char *) &r4->t0004 + (r4->dw0558 * 0x04 + 1040)), r5, (size_t) r6);
 		}
 	}
 }
@@ -1668,26 +1678,26 @@ void request_make_url(struct Eq_n * r4, word32 ra)
 		snprintf(&r4->b0214, (size_t) 0x0100, "%s http://%s/%s %s\r\n", 0x00);
 }
 
-// 004048DC: Register (ptr32 void) request_add_lines(Register (ptr32 Eq_n) r4, Register (ptr32 Eq_n) r5, Register (ptr32 void) r6)
+// 004048DC: Register (ptr32 (arr (struct "Eq_n"))) request_add_lines(Register (ptr32 Eq_n) r4, Register (ptr32 (arr (struct "Eq_n"))) r5, Register (ptr32 (arr (struct "Eq_n"))) r6)
 // Called from:
 //      client_parse_request
-void * request_add_lines(struct Eq_n * r4, struct Eq_n * r5, void * r6)
+struct Eq_n (* request_add_lines)[](struct Eq_n * r4, struct Eq_n (* r5)[], struct Eq_n (* r6)[])
 {
 	struct Eq_n * r28_n = (struct Eq_n *) 0x10008860;
-	void * dwArg08_n = r6;
+	struct Eq_n (* dwArg08_n)[] = r6;
 	int32 dwLoc18_n = 0x00;
 	while ((word32) (r4->dw0558 < dwLoc18_n) == 0x00)
 	{
-		if (r4->a0004[dwLoc18_n * 0x04 + 1040] != 0x00)
+		if (*((char *) &r4->t0004 + (dwLoc18_n * 0x04 + 1040)) != 0x00)
 		{
-			if ((word32) ((word32) r4->a0004[dwLoc18_n + 0x0510] + r5->dw0FAC < 2000) != 0x00)
+			if (CONVERT(CONVERT(Mem22[r4 + 4 + (dwLoc18_n + 0x0510):int8], int8, word32) + Mem22[r5 + 0x0FAC:word32] < 2000, bool, word32) != 0x00)
 			{
-				r5->dw0FAC += (word32) r4->a0004[dwLoc18_n + 0x0510];
-				word32 r2_n = (word32) r4->a0004[dwLoc18_n + 0x0510];
+				Mem72[r5 + 0x0FAC:word32] = Mem22[r5 + 0x0FAC:word32] + CONVERT(Mem22[(r4 + 4) + (dwLoc18_n + 0x0510):int8], int8, word32);
+				word32 r2_n = (word32) *((char *) &r4->t0004 + (dwLoc18_n + 0x0510));
 				word32 r7_n;
 				r28_n->ptrFFFF81E8();
 				r28_n = (struct Eq_n *) 0x10008860;
-				dwArg08_n = (void *) ((char *) dwArg08_n + (word32) (r4->a0004)[dwLoc18_n + 0x0510]);
+				dwArg08_n += CONVERT(Mem72[r4 + 4 + (dwLoc18_n + 0x0510):int8], int8, word32);
 			}
 			else
 			{
@@ -1701,7 +1711,7 @@ void * request_add_lines(struct Eq_n * r4, struct Eq_n * r5, void * r6)
 	{
 		int32 r3_n = r4->dw0558;
 		r4->dw0558 = r3_n + -1;
-		ptr32 r2_n = r4->a0004 + ((r3_n << 0x02) + 1040);
+		ptr32 r2_n = (char *) &r4->t0004 + ((r3_n << 0x02) + 1040);
 		word32 r7_n;
 		r28_n->ptrFFFF802C();
 		r28_n = (struct Eq_n *) 0x10008860;
@@ -1709,15 +1719,15 @@ void * request_add_lines(struct Eq_n * r4, struct Eq_n * r5, void * r6)
 	return dwArg08_n;
 }
 
-// 00404B34: Register word32 get_method(Register (ptr32 Eq_n) r4, Register out (ptr32 Eq_n) r5Out)
+// 00404B34: Register word32 get_method(Register (ptr32 Eq_n) r4, Register out (ptr32 (arr (struct "Eq_n"))) r5Out)
 // Called from:
 //      request_parse_line
-word32 get_method(struct Eq_n * r4, struct Eq_n & r5Out)
+word32 get_method(struct Eq_n * r4, struct Eq_n (& r5Out)
 {
 	ptr32 fp;
 	word32 r5;
 	strncpy(r4, strsep(fp + 4, 0x00410000, 0x0040A464, 0x10008860), 0x0100);
-	struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
+	struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
 	r5Out = r5_n;
 	return r5;
 }
@@ -1769,7 +1779,7 @@ void request_get_host(struct Eq_n * r4, char * r5, word32 ra)
 				if ((word32) (r2_n - dwLoc18_n < 0x0101) != 0x00)
 				{
 					strncpy(&r4->b0014, dwLoc18_n, r2_n - dwLoc18_n);
-					r4->a0004[r2_n - dwLoc18_n + 16] = 0x00;
+					*((char *) &r4->t0004 + ((r2_n - dwLoc18_n) + 16)) = (<unknown>*) 0x00;
 				}
 				else
 				{
@@ -1887,7 +1897,7 @@ void request_destroy(struct Eq_n * r4)
 	{
 		int32 r3_n = r4->dw0558;
 		r4->dw0558 = r3_n + -1;
-		free(r4->a0004[r3_n * 0x04 + 1040]);
+		free(*((char *) &r4->t0004 + (r3_n * 0x04 + 1040)));
 	}
 	free(r4);
 }
@@ -1983,7 +1993,7 @@ void properties_load(char * r4, char * r5, word32 ra)
 				else
 				{
 					char * r2_n = r2_n + 1 + strspn(r2_n + 1, 0x00410000, 0x0040A640, r2_n + 1);
-					r2_n[strcspn(r2_n, 0x00410000, 0x0040A640, r2_n, r2_n)] = 0x00;
+					r2_n[strcspn(r2_n + 1, r2_n, 0x0040A640, 0x00410000, 0x0040A640, r2_n, r2_n)] = 0x00;
 					*r2_n = 0x00;
 					int32 dwLoc2C_n = 0x00;
 					ui32 dwLoc014C_n = 0x00;
@@ -2069,47 +2079,45 @@ char * properties_parse_command_line[](int32 r4, char * r5[], word32 r16, word32
 					if (r28_n->ptrFFFF81E0->a0008[dwLoc24_n].t0000.u0 != 2)
 						goto l004061C8;
 					word32 r2_n = (word32) bLoc1C_n;
+					char * (* r5_n)[];
 					word32 r2_n;
 					r28_n->ptrFFFF8064();
+					r5_n = r5_n;
+					word32 r6_n = r6_n;
+					word32 r7_n = r7_n;
 					r28_n = (struct Eq_n *) 0x10008860;
-					r5_n = r5_n;
-					if (r2_n == toupper((word32) (((g_ptr10000A40 + (dwLoc24_n * 0x98 + 8) / 0x0696)->a0004))[0].ptr0000))
-						goto l00406004;
-					r5_n = r5_n;
+					if (r2_n != toupper((word32) (((g_ptr10000A40 + (dwLoc24_n * 0x98 + 8) / 0x0696)->a0004))[0].ptr0000))
+						goto l004061C8;
 				}
-				else
+				dwLoc20_n = 1;
+				Eq_n r2_n = r28_n->ptrFFFF81E0->a0008[dwLoc24_n].t0000.u0;
+				if (r2_n != 1)
 				{
-l00406004:
-					dwLoc20_n = 1;
-					Eq_n r2_n = r28_n->ptrFFFF81E0->a0008[dwLoc24_n].t0000.u0;
-					if (r2_n != 1)
+					if ((word32) (r2_n < 1) == 0x00)
 					{
-						if ((word32) (r2_n < 1) == 0x00)
+						if (r2_n == 2)
 						{
-							if (r2_n == 2)
-							{
-								((char *) r28_n->ptrFFFF81E0 + 4)[dwLoc24_n * 0x98 + 144] = (char) ((word32) *((char *) *r28_n->ptrFFFF820C + (word32) bLoc1C_n * 0x02) & 0x01 & 0xFFFF);
-								dwLoc28_n += -1;
-							}
-						}
-						else
-						{
-							ui32 r2_n = (char *) &r28_n->ptrFFFF81E0->a0008->t0000 + 5 + dwLoc24_n * 0x98;
-							word32 r7_n;
-							r28_n->ptrFFFF812C();
-							r28_n = (struct Eq_n *) 0x10008860;
+							((char *) r28_n->ptrFFFF81E0 + 4)[dwLoc24_n * 0x98 + 144] = (char) ((word32) *((char *) *r28_n->ptrFFFF820C + (word32) bLoc1C_n * 0x02) & 0x01 & 0xFFFF);
+							dwLoc28_n += -1;
 						}
 					}
 					else
 					{
-						ptr32 r25_n = r28_n->ptrFFFF801C;
-						word32 r2_n;
-						word32 r6_n;
+						ui32 r2_n = (char *) &r28_n->ptrFFFF81E0->a0008->t0000 + 5 + dwLoc24_n * 0x98;
 						word32 r7_n;
-						(*((word32) r25_n + 21488))();
-						*((char *) &g_ptr10000A40->a0004->ptr0000 + (dwLoc24_n * 0x98 + 144)) = r2_n;
+						r28_n->ptrFFFF812C();
 						r28_n = (struct Eq_n *) 0x10008860;
 					}
+				}
+				else
+				{
+					ptr32 r25_n = r28_n->ptrFFFF801C;
+					word32 r2_n;
+					word32 r6_n;
+					word32 r7_n;
+					(*((word32) r25_n + 21488))();
+					*((char *) &g_ptr10000A40->a0004->ptr0000 + (dwLoc24_n * 0x98 + 144)) = r2_n;
+					r28_n = (struct Eq_n *) 0x10008860;
 				}
 l004061C8:
 				++dwLoc24_n;
@@ -2127,10 +2135,10 @@ l004061C8:
 	return r5_n;
 }
 
-// 0040628C: Register (ptr32 Eq_n) properties_print_usage(Register Eq_n r4)
+// 0040628C: Register (ptr32 (arr (struct "Eq_n"))) properties_print_usage(Register Eq_n r4)
 // Called from:
 //      properties_parse_command_line
-struct Eq_n * properties_print_usage(Eq_n r4)
+struct Eq_n (* properties_print_usage)[](Eq_n r4)
 {
 	if (r4 != 0x00 && (word32) (*r4) != 0x00)
 		printf("Usage: %s -h ", r4);
@@ -2157,7 +2165,7 @@ struct Eq_n * properties_print_usage(Eq_n r4)
 		++dwLoc18_n;
 	}
 	printf("\n");
-	struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
+	struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
 	return r5_n;
 }
 
@@ -2242,10 +2250,10 @@ void log_rotate(word32 ra)
 	{
 		strcpy(fp + -272, *g_ptr100008A0);
 		strcat(fp + -272, ".old");
-		struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
+		struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
 		rename(fp + -272, r4_n, fp + -272, r4_n, *g_ptr100008A0, r5_n, 0x00410000, 0x0040A744, r5_n, fp + -272);
 	}
 	open_log("w", ra);
@@ -2258,10 +2266,10 @@ void log_string(FILE * r4, ui32 r5, char * r7, word32 ra)
 	word32 dwLoc28;
 	int32 dwLoc24;
 	gettimeofday(&dwLoc28, null);
-	struct Eq_n * r7_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r6_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-	struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
+	struct Eq_n (* r7_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r6_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+	struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
 	strftime(fp + -72, (size_t) 28, "%Y-%m-%d %H:%M:%S", gmtime(&dwLoc28, r4_n, &dwLoc28, 0x00, r5_n, r6_n, r7_n, 0x10008860));
 	int32 hi_n = SLICE(dwLoc24 *s 274877907, word32, 32);
 	fprintf(r4, "%s:%s.%03d:%s\n", g_ptr100008FC[r5], fp + -72, (hi_n >> 0x06) - (dwLoc24 >> 0x1F), r7);
@@ -2310,10 +2318,10 @@ struct Eq_n * server_new(word32 r4, word32 r5, word32 r6, int32 r7, word32 ra)
 		bzero(&r2_n->w0008, (size_t) 16);
 		r2_n->w0008 = 0x02;
 		r2_n->w000A = wArg06_n;
-		struct Eq_n * r7_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r6_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r5_n = (struct Eq_n *) <invalid>;
-		struct Eq_n * r4_n = (struct Eq_n *) <invalid>;
+		struct Eq_n (* r7_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r6_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r5_n)[] = (struct Eq_n (*)[]) <invalid>;
+		struct Eq_n (* r4_n)[] = (struct Eq_n (*)[]) <invalid>;
 		r2_n->dw000C = inet_addr(r4_n, r4, r5_n, r6_n, r7_n);
 		r2_n = r2_n;
 	}
@@ -2338,7 +2346,7 @@ int32 server_open(struct Eq_n * r4, word32 ra, ptr32 & r5Out)
 		print_log(1, 4237212, out r5_n, out r6_n, out r7_n, out r25_n);
 		r2_n = 0x00;
 	}
-	else if (bind(r2_n, &r4->dw0004 + 1, 16) < 0x00)
+	else if (bind(r2_n, &r4->ptr0004 + 1, 16) < 0x00)
 	{
 		__errno_location();
 		strerror(*__errno_location());
@@ -2348,20 +2356,25 @@ int32 server_open(struct Eq_n * r4, word32 ra, ptr32 & r5Out)
 		print_log(1, 0x0040A7D4, out r5_n, out r6_n, out r7_n, out r25_n);
 		r2_n = 0x00;
 	}
-	else if (listen(r2_n, r4->dw0004) < 0x00)
-	{
-		__errno_location();
-		strerror(*__errno_location());
-		word32 r6_n;
-		word32 r7_n;
-		word32 r25_n;
-		print_log(1, 0x0040A7FC, out r5_n, out r6_n, out r7_n, out r25_n);
-		r2_n = 0x00;
-	}
 	else
 	{
-		r4->t0000.u0 = (int32) r2_n;
-		r2_n = 1;
+		ptr32 r5_n = r4->ptr0004;
+		r5_n = r5_n;
+		if (listen(r2_n, r5_n) < 0x00)
+		{
+			__errno_location();
+			strerror(*__errno_location());
+			word32 r6_n;
+			word32 r7_n;
+			word32 r25_n;
+			print_log(1, 0x0040A7FC, out r5_n, out r6_n, out r7_n, out r25_n);
+			r2_n = 0x00;
+		}
+		else
+		{
+			r4->t0000.u0 = (int32) r2_n;
+			r2_n = 1;
+		}
 	}
 	r5Out = r5_n;
 	return r2_n;

@@ -3144,8 +3144,8 @@ void safe_print(word32 r4, word32 r10, word32 pr)
 		r9_n = 0x1D;
 	word32 r2_n;
 	int32 r1_n = g_dw4042CC;
-	word32 r0_n;
 	word32 r8_n;
+	word32 r0_n;
 	word32 r9_n;
 	word32 r10_n;
 	word32 r12_n;

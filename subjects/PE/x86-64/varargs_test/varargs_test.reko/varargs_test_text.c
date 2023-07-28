@@ -4,17 +4,22 @@
 
 #include "varargs_test.h"
 
-// 0000000140001000: Register word32 fn0000000140001000()
+// 0000000140001000: Register word32 fn0000000140001000(Register out ptr64 r8Out, Register out ptr64 r9Out)
 // Called from:
 //      Win32CrtStartup
-word32 fn0000000140001000()
+word32 fn0000000140001000(ptr64 & r8Out, ptr64 & r9Out)
 {
 	ptr64 fp;
 	word64 qwLocD0;
 	ui64 rax_n = g_qw40003000 ^ fp - 200;
 	fn0000000140001140(0x140002210);
 	fn00000001400010D0(0x140002228);
-	return fn00000001400011B0(rax_n ^ fp - 200, qwLocD0);
+	ptr64 r8_n;
+	ptr64 r9_n;
+	uint64 rax_n = (uint64) fn00000001400011B0(rax_n ^ fp - 200, qwLocD0, out r8_n, out r9_n);
+	r8Out = r8_n;
+	r9Out = r9_n;
+	return (word32) rax_n;
 }
 
 // 00000001400010C0: Register ptr64 fn00000001400010C0()
@@ -53,20 +58,32 @@ void fn0000000140001140(ptr64 rcx)
 	_stdio_common_vfprintf(rcx, 0x00, 0x00, 0x00, *fn0000000140001130(), _acrt_iob_func(0x01, 0x01), fp + 0x10);
 }
 
-// 00000001400011B0: Register word32 fn00000001400011B0(Register ui64 rcx, Stack word64 qwArg00)
+// 00000001400011B0: Register word32 fn00000001400011B0(Register ui64 rcx, Stack word64 qwArg00, Register out ptr64 r8Out, Register out ptr64 r9Out)
 // Called from:
 //      fn0000000140001000
 //      fn0000000140001E9C
-word32 fn00000001400011B0(ui64 rcx, word64 qwArg00)
+word32 fn00000001400011B0(ui64 rcx, word64 qwArg00, ptr64 & r8Out, ptr64 & r9Out)
 {
+	ptr64 r8;
+	ptr64 r9;
 	word64 rax;
-	if (rcx != g_qw40003000)
-		return fn000000014000147C(rcx, qwArg00);
-	ui64 rcx_n = __rol<word64,byte>(rcx, 0x10);
-	if ((word16) rcx_n == 0x00)
-		return (word32) rax;
-	rcx = __ror<word64,byte>(rcx_n, 0x10);
-	return fn000000014000147C(rcx, qwArg00);
+	if (rcx == g_qw40003000)
+	{
+		ui64 rcx_n = __rol<word64,byte>(rcx, 0x10);
+		if ((word16) rcx_n == 0x00)
+		{
+			r8Out = r8;
+			r9Out = r9;
+			return (word32) rax;
+		}
+		rcx = __ror<word64,byte>(rcx_n, 0x10);
+	}
+	ptr64 r8_n;
+	ptr64 r9_n;
+	uint64 rax_n = (uint64) fn000000014000147C(rcx, qwArg00, out r8_n, out r9_n);
+	r8Out = r8_n;
+	r9Out = r9_n;
+	return (word32) rax_n;
 }
 
 // 00000001400011D4: void fn00000001400011D4(Register word64 rbx, Stack Eq_n tArg08)
@@ -194,9 +211,11 @@ word32 fn00000001400012BC(<anonymous> ** rax)
 	if (*rax_n != null && (byte) fn0000000140001718(rax_n) != 0x00)
 		register_thread_local_exe_atexit_callback(*rax_n);
 	_p___argv();
-	_p___argc();
-	get_initial_narrow_environment();
-	uint64 rax_n = (uint64) fn0000000140001000();
+	_p___argc(r8_n, r9_n);
+	get_initial_narrow_environment(r8_n, r9_n);
+	word64 r8_n;
+	word64 r9_n;
+	uint64 rax_n = (uint64) fn0000000140001000(out r8_n, out r9_n);
 	fn0000000140001AC0();
 	int32 ebx_n = (word32) rax_n;
 	if ((byte) rax_n != 0x00)
@@ -229,10 +248,10 @@ void fn0000000140001448(struct _EXCEPTION_POINTERS * rcx)
 	TerminateProcess(SEQ(rax_32_32_n, GetCurrentProcess()), 0xC0000409);
 }
 
-// 000000014000147C: Register word32 fn000000014000147C(Register ui64 rcx, Stack word64 qwArg00)
+// 000000014000147C: Register word32 fn000000014000147C(Register ui64 rcx, Stack word64 qwArg00, Register out ptr64 r8Out, Register out ptr64 r9Out)
 // Called from:
 //      fn00000001400011B0
-word32 fn000000014000147C(ui64 rcx, word64 qwArg00)
+word32 fn000000014000147C(ui64 rcx, word64 qwArg00, ptr64 & r8Out, ptr64 & r9Out)
 {
 	ptr64 fp;
 	Eq_n tLoc38;
@@ -248,6 +267,8 @@ word32 fn000000014000147C(ui64 rcx, word64 qwArg00)
 		g_dw40003058 = 0x01;
 		g_qw40003060 = 0x02;
 		fn0000000140001448(&g_t40002200);
+		r8Out = r8_n;
+		r9Out = r9_n;
 		return (word32) rax_n;
 	}
 	else
@@ -798,7 +819,9 @@ void fn0000000140001E9C(Eq_n rcx, struct Eq_n * rdx, struct Eq_n * r8, word64 qw
 	if ((rcx_n->b0003 & 0x0F) != 0x00)
 		r9_n = (word64) rcx + (uint64) ((word32) rcx_n->b0003 & ~0x0F);
 	ui64 r9_n = r9_n ^ rdx_n;
-	fn00000001400011B0(r9_n, qwArg00);
+	word64 r8_n;
+	word64 r9_n;
+	fn00000001400011B0(r9_n, qwArg00, out r8_n, out r9_n);
 }
 
 // 0000000140001F10: void fn0000000140001F10(Register (ptr64 code) rax)

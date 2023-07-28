@@ -21,7 +21,7 @@ void strcpy(word32 r28, word32 ra)
 
 // MayUse:  r28:[0..31] ra:[0..31]
 // LiveOut:
-// Trashed: r1 r15 r2 r24 r25 r28 r3
+// Trashed: r1 r15 r2 r24 r25 r28 r3 r4
 // Preserved: sp
 strcpy_entry:
 l00400290:
@@ -193,7 +193,7 @@ void strerror(word32 r28, word32 ra)
 
 // MayUse:  r28:[0..31] ra:[0..31]
 // LiveOut:
-// Trashed: r1 r15 r2 r24 r25 r28 r3
+// Trashed: r1 r15 r2 r24 r25 r28 r3 r4
 // Preserved: sp
 strerror_entry:
 l004002D0:
@@ -417,7 +417,7 @@ void vsnprintf(word32 r28, word32 ra)
 
 // MayUse:  r28:[0..31] ra:[0..31]
 // LiveOut:
-// Trashed: r1 r15 r2 r24 r25 r28 r3
+// Trashed: r1 r15 r2 r24 r25 r28 r3 r4
 // Preserved: sp
 vsnprintf_entry:
 l00400350:
@@ -745,7 +745,7 @@ void read(word32 r28, word32 ra)
 
 // MayUse:  r28:[0..31] ra:[0..31]
 // LiveOut:
-// Trashed: r1 r15 r2 r24 r25 r28 r3
+// Trashed: r1 r15 r2 r24 r25 r28 r3 r4
 // Preserved: sp
 read_entry:
 l00400450:
@@ -1206,7 +1206,7 @@ void free(word32 r28, word32 ra)
 
 // MayUse:  r28:[0..31] ra:[0..31]
 // LiveOut:
-// Trashed: r1 r15 r2 r24 r25 r28 r3
+// Trashed: r1 r15 r2 r24 r25 r28 r3 r4
 // Preserved: sp
 free_entry:
 l00400600:
@@ -1229,8 +1229,8 @@ void __do_global_dtors_aux()
 //      free
 // MayUse: 
 // LiveOut:
-// Trashed: r1 r2 r25 r28 r3
-// Preserved: r4 ra sp
+// Trashed: r1 r2 r25 r28 r3 r4
+// Preserved: ra sp
 __do_global_dtors_aux_entry:
 l00400620:
 	branch Mem8[Mem8[0x10000878<32>:word32] + 8<i32>:word32] != 0<32> l0040064C_ds_t
@@ -1285,8 +1285,8 @@ void frame_dummy()
 
 // MayUse: 
 // LiveOut:
-// Trashed: r25 r28
-// Preserved: r4 r5 ra sp
+// Trashed: r25 r28 r4 r5
+// Preserved: ra sp
 frame_dummy_entry:
 l0040072C:
 	branch __register_frame_info == 0<32> l0040074C_ds_t
@@ -1416,9 +1416,9 @@ l00400D6C:
 	word32 r5_410 = <invalid>
 	word32 r4_409 = <invalid>
 	inet_addr(r4_409, Mem420[0x10000A40<32>:word32] + 469<i32>, r5_410, r6_412, r7_414, 2<16>, Mem417[Mem417[0x10000A40<32>:word32] + 0x2F6<32>:uint16])
+	word32 r5_1005 = r5_410
 	word32 dwLoc0150_1279 = Mem432[r2_325 + 8<32>:word32]
 l00400EA4:
-	word32 r5_1005
 	word32 r28_1010 = 0x10008860<32>
 	branch dwLoc0150_1279 != 0<32> l00400EBC
 l00400EBC:
@@ -1501,6 +1501,7 @@ l00401340:
 	dwLoc0158_1311 = Mem668[dwLoc0158_1311 + 0x17B8<32>:word32]
 l004010F0:
 l00401358:
+	r5_1005 = fp + -304<i32> (alias)
 	branch select(dwLoc0160_1284 + 1<i32>, fp + -304<i32>, 0<32>, 0<32>, 0<32>) >= 0<32> l00401454
 l00401454:
 	r28_1010 = 0x10008860<32>
@@ -1778,9 +1779,11 @@ word32 client_prepare_connect(word32 r4, word32 ra, ptr32 & r6Out, ptr32 & r7Out
 client_prepare_connect_entry:
 	ptr32 fp
 l00402028:
-	getsockopt(Mem24[r4:word32], 0<32>, 80<i32>, r4 + 6040<i32>, fp + -24<i32>, 0x10008860<32>, 16<i32>)
-	inet_ntoa(Mem24[r4 + 0x179C<32>:word32])
-	inet_ntoa(Mem24[r4 + 0x179C<32>:word32])
+	word32 r4_25 = Mem24[r4:word32]
+	getsockopt(r4_25, 0<32>, 80<i32>, r4 + 6040<i32>, fp + -24<i32>, 0x10008860<32>, 16<i32>)
+	word32 r4_38 = Mem24[r4 + 0x179C<32>:word32]
+	inet_ntoa(r4_25, r4_38, 0<32>, 80<i32>, r4 + 6040<i32>)
+	inet_ntoa(r4_38, Mem24[r4 + 0x179C<32>:word32])
 	word32 r2_76 = snprintf(fp + -280<i32>, SLICE(256<i32>, size_t, 0), 0x00409F94<p32>, 0<32>)
 	word32 dwLoc18_124 = r2_76
 	branch CONVERT(r2_76 < 256<i32>, bool, word32) != 0<32> l00402158
@@ -2087,7 +2090,7 @@ void client_read_request(word32 r4)
 
 // MayUse:  r4:[0..31]
 // LiveOut:
-// Trashed: r2 r25 r28 r3 r4 r5 r6 r7
+// Trashed: r2 r28 r3 r5 r6 r7
 // Preserved: r30 ra sp
 client_read_request_entry:
 l00402E44:
@@ -2118,7 +2121,9 @@ l00402EF8:
 	word32 r25_110 = <invalid>
 	branch Mem29[r4 + 0xFAC<32>:word32] > 0<32> l00402F68
 l00402F68:
-	word32 r2_42 = send(Mem29[r4 + 4<32>:word32], Mem29[r4 + 0xFB0<32>:word32], r4, Mem29[r4 + 0xFAC<32>:word32], 0<32>)
+	word32 r5_36 = Mem29[r4 + 0xFB0<32>:word32]
+	word32 r2_42 = send(Mem29[r4 + 4<32>:word32], r5_36, r4, Mem29[r4 + 0xFAC<32>:word32], 0<32>)
+	r5_118 = r5_36 (alias)
 	branch r2_42 != Mem48[r4 + 0xFAC<32>:word32] l00402FDC
 l00402FDC:
 	Mem57[r4 + 0xFB0<32>:word32] = Mem48[r4 + 0xFB0<32>:word32] + r2_42
@@ -2181,8 +2186,8 @@ void client_copy_reply(word32 r4)
 //      client_parse_reply
 // MayUse:  r4:[0..31]
 // LiveOut:
-// Trashed: r2 r25 r28 r3
-// Preserved: r30 r4 r5 r6 r7 ra sp
+// Trashed: r2 r25 r28 r3 r4 r5 r6 r7
+// Preserved: r30 ra sp
 client_copy_reply_entry:
 l004031DC:
 	branch Mem15[r4 + 0x178C<32>:word32] > 0<32> l00403220
@@ -3168,7 +3173,7 @@ l00405858:
 	branch r2_242 != 0<32> l00405920
 l00405920:
 	word32 r2_266 = r2_242 + 1<i32> + strspn(r2_242 + 1<i32>, 0x00410000<p32>, 0x0040A640<p32>, r2_242 + 1<i32>)
-	Mem287[r2_266 + strcspn(r2_266, 0x00410000<p32>, 0x0040A640<p32>, r2_266, r2_266):byte] = 0<8>
+	Mem287[r2_266 + strcspn(r2_242 + 1<i32>, r2_266, 0x0040A640<p32>, 0x00410000<p32>, 0x0040A640<p32>, r2_266, r2_266):byte] = 0<8>
 	Mem289[r2_232:byte] = 0<8>
 	word32 dwLoc2C_567 = 0<32>
 	word32 dwLoc014C_568 = 0<32>
@@ -3293,12 +3298,15 @@ l00405F40:
 	branch Mem116[Mem116[r28_125 - 0x7E20<32>:word32] + (dwLoc24_383 * 0x98<32> + 8<i32>):word32] != 2<i32> l004061C8
 l00405F80:
 	word32 r2_199 = CONVERT(bLoc1C_368, byte, word32)
+	word32 r5_205
 	word32 r2_206
 	call Mem116[r28_125 - 0x7F9C<32>:word32] (retsize: 0;)
 		uses: r2:r2_199,r4:r2_199,r5:r5_202,r6:r6_230,r7:r7_231
-		defs: r2:r2_206
+		defs: r2:r2_206,r5:r5_205
+	r5_168 = r5_205 (alias)
+	word32 r6_230 = r6_230
+	word32 r7_231 = r7_231
 	r28_125 = 0x10008860<32>
-	r5_168 = r5_227
 	branch r2_206 == toupper(CONVERT(Mem116[(Mem116[0x10000A40<32>:word32] + (dwLoc24_383 * 0x98<32> + 8<i32>)) + 4<32>:int8], int8, word32)) l00406004
 l00406004:
 	dwLoc20_382 = 1<i32>
@@ -3330,7 +3338,6 @@ l00406150:
 	dwLoc28_364 = dwLoc28_364 + -1<i32>
 l00406084:
 l00405FFC:
-	r5_168 = r5_227
 l004061C8:
 	dwLoc24_383 = dwLoc24_383 + 1<i32>
 l00405E64:
@@ -3613,7 +3620,9 @@ l00406D4C:
 l00406E40:
 	branch bind(r2_26, r4 + 8<i32>, 16<i32>) >= 0<32> l00406F0C
 l00406F0C:
-	branch listen(r2_26, Mem30[r4 + 4<32>:word32]) >= 0<32> l00406FCC
+	word32 r5_48 = Mem30[r4 + 4<32>:word32]
+	r5_104 = r5_48 (alias)
+	branch listen(r2_26, r5_48) >= 0<32> l00406FCC
 l00406FCC:
 	Mem60[r4:word32] = r2_26
 	r2_110 = 1<i32>

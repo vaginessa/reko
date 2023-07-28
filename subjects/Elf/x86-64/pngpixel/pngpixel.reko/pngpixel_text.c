@@ -117,8 +117,8 @@ void print_pixel(uint32 ecx, word64 rdx, word64 rsi, word64 rdi, struct Eq_n * f
 	ptr64 fp;
 	word64 rax_n = fs->qw0028;
 	Eq_n eax_n = (word32) (byte) png_get_bit_depth(rdi, rsi, rsi, rdx, rsi, rdi, rax_n);
-	png_get_color_type(rdi, rsi, rsi, eax_n);
-	up32 eax_n = (word32) (byte) rax_n;
+	png_get_color_type(rdi, rdi, rsi, rsi, rsi, rsi, eax_n);
+	up32 eax_n = (word32) (byte) rdi;
 	if (eax_n <= 0x06)
 	{
 		switch (eax_n)
@@ -135,7 +135,7 @@ void print_pixel(uint32 ecx, word64 rdx, word64 rsi, word64 rdi, struct Eq_n * f
 		case 0x03:
 			uint32 eax_n = component(eax_n, 0x00, ecx, rdx, 0x01);
 			png_get_PLTE(fp - 80, rdi, fp - 64, rsi, 0x00, eax_n, 0x00);
-			if (((word32) rax_n & 0x08) != 0x00 && (false && false))
+			if (((word32) rdi & 0x08) != 0x00 && (false && false))
 			{
 				if (((word32) png_get_tRNS(0x00, fp - 76, rdi, fp - 56, rsi, 0x00, 0x00) & 0x10) != 0x00 && (false && false))
 				{
@@ -204,10 +204,10 @@ void main(struct Eq_n * rsi, word32 edi, struct Eq_n * fs)
 	if (rax_n != 0x00)
 	{
 		png_init_io(rax_n, rax_n, rax_n);
-		png_read_info(rax_n, rax_n, rax_n);
-		word64 rax_n = png_get_rowbytes(rax_n, rax_n, rax_n);
-		word64 rax_n = png_malloc(rax_n, rax_n, rax_n);
-		if ((word32) png_get_IHDR(fp - 0x0080, fp - 0x007C, fp - 0x0084, fp - 112, fp - 116, fp - 0x0078, rax_n, fp - 0x0088, rax_n, fp - 0x0078, fp - 116, fp - 112, rax_n, rax_n) != 0x00)
+		png_read_info(fp - 0x0080, fp - 0x007C, fp - 0x0084, rax_n, rax_n, rax_n, rax_n, rax_n, rax_n);
+		word64 rax_n = png_get_rowbytes(fp - 0x0080, fp - 0x007C, fp - 0x0084, rax_n, rax_n, rax_n, rax_n, rax_n, rax_n);
+		word64 rax_n = png_malloc(fp - 0x0080, fp - 0x007C, fp - 0x0084, rax_n, rax_n, rax_n, rax_n, rax_n, rax_n);
+		if ((word32) png_get_IHDR(fp - 0x0080, fp - 0x0080, fp - 0x007C, fp - 0x007C, fp - 0x0084, fp - 0x0084, rax_n, fp - 112, fp - 116, fp - 0x0078, rax_n, rax_n, fp - 0x0088, rax_n, rax_n, fp - 0x0078, fp - 116, fp - 112, rax_n, rax_n) != 0x00)
 		{
 			if (dwLoc78 != 0x00)
 			{
@@ -282,7 +282,10 @@ l000000000040166F:
 			}
 l000000000040167F:
 			png_free(rax_n, rax_n, rax_n, 0x00);
-			png_destroy_info_struct(rax_n, fp - 56, fp - 56);
+			png_destroy_info_struct(r8_n, r9_n, rcx_n, rax_n, rax_n, rax_n, fp - 56, rax_n, fp - 56);
+			word64 rcx_n = rcx_n;
+			word64 r9_n = r9_n;
+			word64 r8_n = r8_n;
 l00000000004016DE:
 			png_destroy_read_struct(fp - 64, 0x00, 0x00);
 l000000000040175D:

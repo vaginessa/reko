@@ -319,6 +319,8 @@ namespace Reko.Analysis
                 if (pc.Procedure is not ExternalProcedure)
                     return;
             }
+            if (stm.Block.Id == "l00E7_082E")
+                _ = this; //$DEBUG
             var trashedRegisters = program.Platform.TrashedRegisters;
             var preservedRegisters = program.Platform.PreservedRegisters;
             var platform = program.Platform;

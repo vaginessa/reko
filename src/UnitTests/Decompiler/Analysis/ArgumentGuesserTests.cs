@@ -88,6 +88,7 @@ namespace Reko.UnitTests.Decompiler.Analysis
 esp_1 = esp + 4<32>
 v3_5 = 0x68<32>
 external_proc(v3_5)
+esp_2 = esp + 4<32> (alias)
 return
 ";
             #endregion
@@ -119,6 +120,7 @@ v4_9 = 0x68<32>
 esp_2 = fp - 8<32>
 v3_8 = 0x65<32>
 external_proc(v3_8, v4_9)
+esp_3 = fp - 8<32> (alias)
 return
 ";
             #endregion
@@ -154,6 +156,7 @@ r2_2 = 0x68<32>
 r1_1 = 0x65<32>
 r3_3 = 0x65<32>
 external_proc(r1_1, r2_2)
+esp_4 = esp - 8<32> (alias)
 return
 ";
             #endregion
@@ -253,6 +256,32 @@ return
                     new[] { (r1_2.Storage, r1_2) });
                 m.Assign(r3_3, r3);
                 m.Return();
+            });
+        }
+
+        [Test]
+        public void Argg_BypassDefinedRegisters()
+        {
+            var sExpected =
+            #region Expected
+@"
+r3_1 = 0x42<32>
+external_proc()
+r3_2 = r3_1 (alias)
+Mem3[0x123400<32>:word32] = r3_2
+";
+            #endregion
+
+            RunTest(sExpected, m =>
+            {
+                var r3_1 = m.Reg("r3_1", reg3);
+                var r3_2 = m.Reg("r3_2", reg3);
+                var esp = m.Reg("esp", m.Architecture.StackRegister);
+                m.Assign(r3_1, 0x42);
+                m.Call(externalProc, 4,
+                    new[] { (esp.Storage, (Expression) m.ISub(esp, 8)), (r3_1.Storage, r3_1) },
+                    new[] { (r3_2.Storage, r3_2) });
+                m.MStore(m.Word32(0x00123400), r3_2);
             });
         }
     }

@@ -600,14 +600,14 @@ T_105: (in COREDLL.dll!Ordinal_2696() @ 0001120C : void)
   Class: Eq_105
   DataType: void
   OrigDataType: void
-T_106: (in r8_24 @ 00011230 : ui32)
+T_106: (in r2_16 @ 0001120C : uint32)
+  Class: Eq_106
+  DataType: uint32
+  OrigDataType: uint32
+T_107: (in r8_24 @ 00011230 : ui32)
   Class: Eq_98
   DataType: ui32
   OrigDataType: ui32
-T_107: (in r2_16 @ 00011230 : word32)
-  Class: Eq_107
-  DataType: uint32
-  OrigDataType: uint32
 T_108: (in 0x10<8> @ 00011230 : byte)
   Class: Eq_108
   DataType: byte

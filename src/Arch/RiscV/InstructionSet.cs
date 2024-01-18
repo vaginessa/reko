@@ -151,14 +151,14 @@ namespace Reko.Arch.RiscV
 
                 var loads = new Decoder[]           // 0b00000
                 {
-                    Instr(Mnemonic.lb, d,r1,Ls),
-                    Instr(Mnemonic.lh, d,r1,Ls),
-                    Instr(Mnemonic.lw, d,r1,Ls),
-                    Instr(Mnemonic.ld, d,r1,Ls),    // 64I
+                    Instr(Mnemonic.lb, d,Ls),
+                    Instr(Mnemonic.lh, d,Ls),
+                    Instr(Mnemonic.lw, d,Ls),
+                    Instr(Mnemonic.ld, d,Ls),    // 64I
 
-                    Instr(Mnemonic.lbu, d,r1,Ls),
-                    Instr(Mnemonic.lhu, d,r1,Ls),
-                    Instr(Mnemonic.lwu, d,r1,Ls),    // 64I
+                    Instr(Mnemonic.lbu, d,Ls),
+                    Instr(Mnemonic.lhu, d,Ls),
+                    Instr(Mnemonic.lwu, d,Ls),    // 64I
                     Nyi(""),
                 };
 
@@ -177,10 +177,10 @@ namespace Reko.Arch.RiscV
 
                 var stores = new Decoder[]          // 0b01000
                 {
-                    Instr(Mnemonic.sb, r2,r1,Ss),
-                    Instr(Mnemonic.sh, r2,r1,Ss),
-                    Instr(Mnemonic.sw, r2,r1,Ss),
-                    Instr(Mnemonic.sd, r2,r1,Ss),   // I64
+                    Instr(Mnemonic.sb, r2,Ss),
+                    Instr(Mnemonic.sh, r2,Ss),
+                    Instr(Mnemonic.sw, r2,Ss),
+                    Instr(Mnemonic.sd, r2,Ss),   // I64
 
                     invalid,
                     invalid,
@@ -473,28 +473,28 @@ namespace Reko.Arch.RiscV
                         Nyi("amo - 010"),
                         (0x02, Instr(Mnemonic.lr_w, aq_rl, d, r1)),
                         (0x03, Instr(Mnemonic.sc_w, aq_rl, d, r1, r2)),
-                        (0x01, Instr(Mnemonic.amoswap_w, aq_rl, d, r1, r2)),
-                        (0x00, Instr(Mnemonic.amoadd_w, aq_rl, d, r1, r2)),
-                        (0x04, Instr(Mnemonic.amoxor_w, aq_rl, d, r1, r2)),
-                        (0x0C, Instr(Mnemonic.amoand_w, aq_rl, d, r1, r2)),
-                        (0x08, Instr(Mnemonic.amoor_w, aq_rl, d, r1, r2)),
-                        (0x10, Instr(Mnemonic.amomin_w, aq_rl, d, r1, r2)),
-                        (0x14, Instr(Mnemonic.amomax_w, aq_rl, d, r1, r2)),
-                        (0x18, Instr(Mnemonic.amominu_w, aq_rl, d, r1, r2)),
-                        (0x1C, Instr(Mnemonic.amomaxu_w, aq_rl, d, r1, r2))),
+                        (0x01, Instr(Mnemonic.amoswap_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x00, Instr(Mnemonic.amoadd_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x04, Instr(Mnemonic.amoxor_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x0C, Instr(Mnemonic.amoand_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x08, Instr(Mnemonic.amoor_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x10, Instr(Mnemonic.amomin_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x14, Instr(Mnemonic.amomax_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x18, Instr(Mnemonic.amominu_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x1C, Instr(Mnemonic.amomaxu_w, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15)))),
                     Sparse(27, 5, "  AMO",
                         Nyi("amo - 011"),
                         (0x02, Instr(Mnemonic.lr_d, aq_rl, d, r1)),
                         (0x03, Instr(Mnemonic.sc_d, aq_rl, d, r1, r2)),
-                        (0x01, Instr(Mnemonic.amoswap_d, aq_rl, d, r1, r2)),
-                        (0x00, Instr(Mnemonic.amoadd_d, aq_rl, d, r1, r2)),
-                        (0x04, Instr(Mnemonic.amoxor_d, aq_rl, d, r1, r2)),
-                        (0x0C, Instr(Mnemonic.amoand_d, aq_rl, d, r1, r2)),
-                        (0x08, Instr(Mnemonic.amoor_d, aq_rl, d, r1, r2)),
-                        (0x10, Instr(Mnemonic.amomin_d, aq_rl, d, r1, r2)),
-                        (0x14, Instr(Mnemonic.amomax_d, aq_rl, d, r1, r2)),
-                        (0x18, Instr(Mnemonic.amominu_d, aq_rl, d, r1, r2)),
-                        (0x1C, Instr(Mnemonic.amomaxu_d, aq_rl, d, r1, r2))),
+                        (0x01, Instr(Mnemonic.amoswap_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x00, Instr(Mnemonic.amoadd_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x04, Instr(Mnemonic.amoxor_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x0C, Instr(Mnemonic.amoand_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x08, Instr(Mnemonic.amoor_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x10, Instr(Mnemonic.amomin_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x14, Instr(Mnemonic.amomax_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x18, Instr(Mnemonic.amominu_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15))),
+                        (0x1C, Instr(Mnemonic.amomaxu_d, aq_rl, d, r2, Mem(PrimitiveType.Word32, 15)))),
                     Nyi("amo - 100"),
                     Nyi("amo - 101"),
                     Nyi("amo - 110"),

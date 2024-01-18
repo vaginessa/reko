@@ -333,12 +333,7 @@ namespace Reko.Arch.RiscV
             return true;
         }
 
-        private static bool Ss(uint wInstr, RiscVDisassembler dasm)
-        {
-            var op = dasm.GetSImmediate(wInstr);
-            dasm.state.ops.Add(op);
-            return true;
-        }
+        private static readonly Mutator<RiscVDisassembler> Ss = Mem(PrimitiveType.Word32, 15, (25,7),(7,5));
 
         /// <summary>
         /// Predecessor or successor field in a <code>fence</code>
@@ -358,12 +353,7 @@ namespace Reko.Arch.RiscV
         private static readonly Mutator<RiscVDisassembler> ps_24 = PredSucc(24);
 
         // signed offset used in loads
-        private static bool Ls(uint wInstr, RiscVDisassembler dasm)
-        {
-            var op = dasm.GetImmediate(wInstr, 20, 's');
-            dasm.state.ops.Add(op);
-            return true;
-        }
+        private static readonly Mutator<RiscVDisassembler> Ls = Mem(PrimitiveType.Word32, 15, (20,12));
 
         private static bool z(uint wInstr, RiscVDisassembler dasm)
         {
@@ -690,7 +680,8 @@ namespace Reko.Arch.RiscV
             var mask = new Bitfield(bitPos1, length1);
             return (u, d) =>
             {
-                var imm = Constant.Create(d.arch.WordWidth, mask.Read(u));
+                var primType = PrimitiveType.CreateBitSlice(length1);
+                var imm = Constant.Create(primType, mask.Read(u));
                 d.state.ops.Add(new ImmediateOperand(imm));
                 return true;
             };

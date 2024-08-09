@@ -158,13 +158,14 @@ namespace Reko.UserInterfaces.WindowsForms
             if (itemCount < 2)
                 return;
             int i;
-            if (listView.FocusedItem == null)
+            var tag = listView.FocusedItem?.Tag;
+            if (tag is null)
             {
                 i = 0;
             }
             else
             {
-                i = ((int) listView.FocusedItem.Tag + itemCount + distance) % itemCount;
+                i = ((int) tag + itemCount + distance) % itemCount;
             }
             listView.SelectedIndices.Clear();
             listView.SelectedIndices.Add(i);
@@ -175,9 +176,10 @@ namespace Reko.UserInterfaces.WindowsForms
 
         void listView_DoubleClick(object? sender, EventArgs e)
         {
-            if (listView.FocusedItem == null)
+            var tag = listView.FocusedItem?.Tag;
+            if (tag is null)
                 return;
-            DoubleClickItem((int)listView.FocusedItem.Tag);
+            DoubleClickItem((int) tag);
         }
 
         private class SearchResultView : ISearchResultView
@@ -221,7 +223,7 @@ namespace Reko.UserInterfaces.WindowsForms
             {
                 var i = listView.TopItem;
                 if (i is null)
-                    return null;
+                    return Task.FromResult<string?>(null);
                 return typeMarker.ShowAsync(program, addr, i.Position);
             }
         }

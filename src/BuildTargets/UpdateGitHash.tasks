@@ -29,6 +29,7 @@ Process p = new Process();
 // Redirect the output stream of the child process.
 p.StartInfo.UseShellExecute = false;
 p.StartInfo.RedirectStandardOutput = true;
+p.StartInfo.CreateNoWindow = true;
 
 p.StartInfo.FileName = "git";
 p.StartInfo.Arguments = "rev-parse --short HEAD";
@@ -55,7 +56,14 @@ try {
 }
 fileContents = fileContents.Replace("@GIT_HASH@", currentHash);
 Log.LogMessage(MessageImportance.Normal, $"Writing git hash to {OutputFileName}");
-File.WriteAllText(OutputFileName, fileContents);
+try {
+   File.WriteAllText(OutputFileName, fileContents);
+} catch (Exception) {
+   // Attempt to write the output file failed, possibly because of a race condition.
+   // Pause for a second, then try again.
+   System.Threading.Thread.Sleep(1000);
+   File.WriteAllText(OutputFileName, fileContents);
+}
 Log.LogMessage(MessageImportance.Normal, $"Writing new hash file to {HashFileName}");
 File.WriteAllText(HashFileName, currentHash);
 ]]>

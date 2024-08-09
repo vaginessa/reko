@@ -31,7 +31,6 @@ namespace Reko.UserInterfaces.WindowsForms.Controls
     /// <summary>
     /// Displays an image map graphically.
     /// </summary>
-    [SupportedOSPlatform("windows")]
 	public class ImageMapControl : Control
 	{
 		private SegmentMap map;

@@ -590,7 +590,6 @@ namespace Reko.UserInterfaces.WindowsForms.Controls
             }
         }
 
-        [SupportedOSPlatform("windows")]
         public class MemoryControlPainter
         {
             private MemoryControl ctrl;

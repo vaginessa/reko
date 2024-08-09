@@ -71,6 +71,7 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
             this.bgSelected = bgSelected;
             this.defaultFont = defaultFont;
             this.styleStack = styleStack;
+            this.selStart = default!;
         }
 
         public void SetSelection(TextPointer start, TextPointer end)
@@ -99,7 +100,7 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
             double xMax = 0;
             if (line.Spans.Length > 0)
             {
-                xMax = line.Spans[line.Spans.Length - 1].ContentExtent.Right;
+                xMax = line.Spans[^1].ContentExtent.Right;
             }
             var cx = extent.Width - xMax;
             if (cx > 0)

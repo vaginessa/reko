@@ -859,6 +859,12 @@ public class HexViewControl : Control, ILogicalScrollable
         public MemoryControlPainter(HexViewControl ctrl)
         {
             this.ctrl = ctrl;
+            GetColorPreferences();
+            Debug.Assert(selectTheme is not null);
+            Debug.Assert(secondarySelectTheme is not null);
+            Debug.Assert(defaultTheme is not null);
+            Debug.Assert(dataTheme is not null);
+            Debug.Assert(codeTheme is not null);
             //$TODO: derive brush from SystemColors.HighLight using HSB model
             this.secondarySelBrush = new SolidColorBrush(
                 Color.FromArgb(0xFF, 0xD0, 0xD0, 0xFF));
@@ -870,29 +876,38 @@ public class HexViewControl : Control, ILogicalScrollable
         /// Paints the control's window area. Strategy is to find the spans that make up
         /// the whole segment, and paint them one at a time.
         /// </summary>
-        /// <param name="g"></param>
-        public (Address?, bool) PaintWindow(DrawingContext g, Size cellSize, Point ptAddr, bool render)
+        /// <param name="g">?<see cref="DrawingContext"/> to draw to.</param>
+        /// <param name="cellSize">The extent of each cell to render. A cell is typically
+        /// a byte (rendered as two hex digits) but can vary in size.
+        /// </param>
+        public (Address?, bool) PaintWindow(
+            DrawingContext g,
+            Size cellSize,
+            Point ptAddr,
+            bool render)
         {
             this.cellSize = cellSize;
             GetColorPreferences();
 
-            if (ctrl.arch == null || ctrl.imageMap == null || ctrl.addrMin is null)
+            var addrTop = ctrl.TopAddress;
+            var segmap = ctrl.SegmentMap;
+            if (ctrl.arch is null || ctrl.imageMap is null || ctrl.addrMin is null || addrTop is null || segmap is null)
                 return (null, ctrl.IsTextSideSelected);
+
             // Enumerate all segments visible on screen.
 
             ulong laEnd = ctrl.addrMin.ToLinear() + ctrl.memSize;
-            if (ctrl.TopAddress.ToLinear() >= laEnd)
+            if (addrTop.ToLinear() >= laEnd)
                 return (null, ctrl.IsTextSideSelected);
-            var addrStart = Address.Max(ctrl.TopAddress, ctrl.mem.BaseAddress);
+            var addrStart = Address.Max(addrTop, ctrl.mem.BaseAddress);
             EndianImageReader rdr = ctrl.arch.CreateImageReader(ctrl.mem, addrStart);
             Rect rcClient = ctrl.Bounds;
             Rect rc = rcClient.WithHeight(cellSize.Height);
-            Size cell = ctrl.cellSize;
 
             ulong laSegEnd = 0;
             while (rc.Top < rcClient.Height && (laEnd == 0 || rdr.Address.ToLinear() < laEnd))
             {
-                if (ctrl.SegmentMap.TryFindSegment(ctrl.TopAddress, out ImageSegment? seg))
+                if (segmap.TryFindSegment(addrTop, out ImageSegment? seg))
                 {
                     if (rdr.Address.ToLinear() >= laSegEnd)
                     {

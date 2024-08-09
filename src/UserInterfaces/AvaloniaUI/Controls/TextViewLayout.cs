@@ -366,14 +366,14 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
     /// </summary>
     public class LayoutLine
     {
-        public LayoutLine(object Position, object tag, string style) {
+        public LayoutLine(object Position, object ?tag, string style) {
             this.Position = Position;
             this.Tag = tag;
             this.Style = style;
         }
 
         public object Position;
-        public object Tag;                  // extra object for this line.
+        public object? Tag;                  // extra object for this line.
         public string Style;
         public Rect Extent;
         public LayoutSpan[] Spans;

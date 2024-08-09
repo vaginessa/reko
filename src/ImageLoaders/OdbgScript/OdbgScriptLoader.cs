@@ -18,17 +18,17 @@
  */
 #endregion
 
+#pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable CS8981
+
 using Reko.Core;
-using Reko.Core.Emulation;
 using Reko.Core.Loading;
 using Reko.Core.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using rulong = System.UInt64;
 
-#pragma warning disable IDE1006 // Naming Styles
 
 namespace Reko.ImageLoaders.OdbgScript
 {

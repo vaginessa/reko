@@ -3,6 +3,8 @@ using Reko.Core.Emulation;
 using Reko.Core.Expressions;
 using System;
 
+#pragma warning disable CS8981
+
 namespace Reko.ImageLoaders.OdbgScript
 {
     using rulong = System.UInt64;

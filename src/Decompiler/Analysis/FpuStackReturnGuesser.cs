@@ -106,7 +106,7 @@ public class FpuStackReturnGuesser : IAnalysis<SsaState>
                 // that FPU stack was preserved. Assume that offset is -1
                 // otherwise.
                 int delta = WasUsed(sid) ? -1 : 0;
-                bool changed = ssam.AdjustRegisterAfterCall(callStm, ci, fpuStack, delta);
+                changed = ssam.AdjustRegisterAfterCall(callStm, ci, fpuStack, delta);
                 var fpuDefs = CreateFpuStackTemporaryBindings(delta);
                 changed |= fpuDefs.Count > 0;
                 AddFpuToCallDefs(fpuDefs, callStm, ci);

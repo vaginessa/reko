@@ -39,7 +39,6 @@ namespace Reko.Gui.TextViewing
         private List<ITextSpan> line;
         private List<string> annotations;
         private string mnemonicStyle;
-        private Address addrInstr;
 
         public DisassemblyFormatter(
             TextSpanFactory factory,
@@ -57,11 +56,10 @@ namespace Reko.Gui.TextViewing
             this.mnemonicStyle = Gui.Services.UiStyles.DisassemblerOpcode;
         }
 
-        public Address Address => addrInstr;
+        public Address Address => instr.Address;
 
         public void BeginInstruction(Address addr)
         {
-            this.addrInstr = addr;
         }
 
         public void EndInstruction()
@@ -130,7 +128,7 @@ namespace Reko.Gui.TextViewing
             sb.Append(n);
         }
 
-        public void WriteString(string s)
+        public void WriteString(string? s)
         {
             sb.Append(s);
         }
@@ -140,8 +138,10 @@ namespace Reko.Gui.TextViewing
             sb.AppendFormat(fmt, parms);
         }
 
-        public void AddAnnotation(string annotation)
+        public void AddAnnotation(string? annotation)
         {
+            if (annotation is null)
+                return;
             this.annotations.Add(annotation);
         }
 

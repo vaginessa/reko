@@ -18,9 +18,10 @@
  */
 #endregion
 
+#pragma warning disable CS8981
+
 using Reko.Core;
 using Reko.Core.Expressions;
-using Reko.Core.Lib;
 using Reko.Core.Loading;
 using Reko.Core.Memory;
 using Reko.Core.Output;

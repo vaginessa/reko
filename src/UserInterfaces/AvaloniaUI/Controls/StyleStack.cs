@@ -20,14 +20,11 @@
 
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using Reko.Gui;
 using Reko.Gui.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Reko.UserInterfaces.AvaloniaUI.Controls
@@ -41,12 +38,13 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
         private IBrush? bg;
         private Typeface? font;
         private double fontSize;
-        private IBrush ctrlForeColor;
-        private IBrush ctrlBackColor;
+        private IBrush? ctrlForeColor;
+        private IBrush? ctrlBackColor;
 
         public StyleStack(IUiPreferencesService uiPrefSvc, Dictionary<string, AvaloniaProperty> brushes)
         {
-            if (uiPrefSvc is null) throw new ArgumentNullException(nameof(uiPrefSvc));
+            if (uiPrefSvc is null)
+                throw new ArgumentNullException(nameof(uiPrefSvc));
             this.uiPrefSvc = uiPrefSvc;
             this.stack = new List<string[]>();
             this.classToBrushMap = brushes;
@@ -66,7 +64,7 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
             stack.RemoveAt(stack.Count - 1);
         }
 
-        private IBrush CacheBrush(ref IBrush? brInstance, IBrush brNew)
+        private IBrush? CacheBrush(ref IBrush? brInstance, IBrush? brNew)
         {
             brInstance = brNew;
             return brNew;
@@ -76,18 +74,18 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
         {
             foreach (var styleName in styles)
             {
-                if (uiPrefSvc.Styles.TryGetValue(styleName, out UiStyle style))
+                if (uiPrefSvc.Styles.TryGetValue(styleName, out var style))
                     yield return style;
             }
         }
 
-        public IBrush GetForeground()
+        public IBrush? GetForeground()
         {
             for (int i = stack.Count - 1; i >= 0; --i)
             {
                 var styles = GetStyles(stack[i]);
-                var ff = (IBrush) styles.Select(s => s.Foreground).LastOrDefault(f => f != null);
-                if (ff != null)
+                var ff = (IBrush?) styles.Select(s => s.Foreground).LastOrDefault(f => f != null);
+                if (ff is not null)
                     return ff;
             }
             return CacheBrush(ref fg, this.ctrlForeColor);
@@ -123,7 +121,7 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
             return fgColor;
         }
 
-        public IBrush GetBackground(IBrush bgColor)
+        public IBrush? GetBackground(IBrush bgColor)
         {
             for (int i = stack.Count - 1; i >= 0; --i)
             {

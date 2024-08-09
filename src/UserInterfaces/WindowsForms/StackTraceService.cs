@@ -89,7 +89,7 @@ namespace Reko.UserInterfaces.WindowsForms
 
         private void PlaceStackTrace(StackTraceDialog dialog)
         {
-            var scrTabLocation = mainForm.TabControl.Parent.PointToScreen(
+            var scrTabLocation = mainForm.TabControl.Parent!.PointToScreen(
                 mainForm.TabControl.Location);
             dialog.Location = new Point(
                 scrTabLocation.X - dialog.Width + mainForm.TabControl.Width,

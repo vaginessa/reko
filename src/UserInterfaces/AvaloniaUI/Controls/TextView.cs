@@ -110,6 +110,7 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
         {
             this.Selection = new TextSelection(this);
             this.model = new EmptyEditorModel();
+            this.styleStack = new StyleStack();
         }
 
         event EventHandler? ILogicalScrollable.ScrollInvalidated

@@ -33,6 +33,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
+#pragma warning disable CS8981
+
 namespace Reko.ImageLoaders.OdbgScript
 {
     using rulong = System.UInt64;

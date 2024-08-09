@@ -286,7 +286,7 @@ namespace Reko.Scanning
 
         private void AddInstruction(RtlInstructionCluster i)
         {
-            sr.FlatInstructions.Add(i.Address.ToLinear(), new ScanResults.instr
+            sr.FlatInstructions.Add(i.Address.ToLinear(), new ScanResults.Instr
             {
                 addr = i.Address,
                 size = i.Length,
@@ -303,7 +303,7 @@ namespace Reko.Scanning
         {
             if (from == Bad)
                 return;
-            sr.FlatEdges.Add(new ScanResults.link
+            sr.FlatEdges.Add(new ScanResults.Link
             {
                 first = to,
                 second = from,

@@ -63,6 +63,6 @@ namespace Reko.Gui
 
         void AddColumn(string columnTitle, int width);
         void Invalidate();
-        Task<string> ShowTypeMarker(Program program, Address addr);
+        Task<string?> ShowTypeMarker(Program program, Address addr);
     }
 }

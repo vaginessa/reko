@@ -27,7 +27,7 @@ using Reko.Gui.TextViewing;
 namespace Reko.UserInterfaces.AvaloniaUI.Controls
 {
     /// <summary>
-    /// A SimpleTextSpan describes a span of text that has the same
+    /// Describes a span of text that has the same
     /// formatting attributes and behaviour.
     /// </summary>
     public abstract class TextSpan : ITextSpan
@@ -38,13 +38,19 @@ namespace Reko.UserInterfaces.AvaloniaUI.Controls
         }
 
         public abstract string GetText();
-        public string Style { get; set; }
+        public string? Style { get; set; }
 
         public object? tag;
-        public object? Tag {
+        public object? Tag
+        {
             get { return tag; }
             set { tag = value; }
         }
+
+        /// <summary>
+        /// ID of the context menu to be displayed whwn this text span
+        /// is right-clicked.
+        /// </summary>
         public int ContextMenuID { get; set; }
 
         public virtual Size GetSize(string text, Typeface font, double emSize)

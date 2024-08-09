@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+#pragma warning disable CS8981
+
 namespace Reko.ImageLoaders.OdbgScript
 {
     using System.Text;

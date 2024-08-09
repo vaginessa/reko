@@ -217,9 +217,11 @@ namespace Reko.UserInterfaces.WindowsForms
                 listView.Invalidate();
             }
 
-            public Task<string> ShowTypeMarker(Program program, Address addr)
+            public Task<string?> ShowTypeMarker(Program program, Address addr)
             {
                 var i = listView.TopItem;
+                if (i is null)
+                    return null;
                 return typeMarker.ShowAsync(program, addr, i.Position);
             }
         }

@@ -149,9 +149,9 @@ namespace Reko.UserInterfaces.WindowsForms
                 get { return typeof(string); }
             }
 
-            public static DictionaryPropertyDescriptor GetFromContext(ITypeDescriptorContext context)
+            public static DictionaryPropertyDescriptor? GetFromContext(ITypeDescriptorContext context)
             {
-                return (DictionaryPropertyDescriptor)context.PropertyDescriptor;
+                return (DictionaryPropertyDescriptor?)context.PropertyDescriptor;
             }
 
             public override void SetValue(object? component, object? value)
@@ -195,22 +195,29 @@ namespace Reko.UserInterfaces.WindowsForms
         {
             public override bool GetStandardValuesSupported(ITypeDescriptorContext? context)
             {
+                if (context is null)
+                    return false;
                 var pd = GetPd(context);
-                return pd.Option.Choices != null &&
+                return pd is not null && 
+                    pd.Option.Choices != null &&
                     pd.Option.Choices.Length > 0;    // show combobox if there are choices
             }
 
             public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext? context)
             {
+                if (context is null)
+                    return new StandardValuesCollection(null);
                 var pd = GetPd(context);
+                if (pd is null)
+                    return new StandardValuesCollection(null);
                 return new StandardValuesCollection(
                     pd.Option.Choices
                         .Select(c => c.Value).ToList());
             }
 
-            private static DictionaryPropertyDescriptor GetPd(ITypeDescriptorContext? context)
+            private static DictionaryPropertyDescriptor? GetPd(ITypeDescriptorContext context)
             {
-                return (DictionaryPropertyDescriptor)context!.PropertyDescriptor;
+                return (DictionaryPropertyDescriptor?)context.PropertyDescriptor;
             }
         }
 
@@ -223,30 +230,32 @@ namespace Reko.UserInterfaces.WindowsForms
         /// </remarks>
         class PropertyOptionEditor : UITypeEditor
         {
-            public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+            public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context)
             {
                 return UITypeEditorEditStyle.Modal;
             }
 
-            public override object? EditValue(ITypeDescriptorContext context, System.IServiceProvider provider, object value)
+            public override object? EditValue(ITypeDescriptorContext? context, System.IServiceProvider provider, object? value)
             {
+                if (context is null)
+                    return null;
                 var svc = provider.RequireService<IWindowsFormsEditorService>();
                 var pd = DictionaryPropertyDescriptor.GetFromContext(context);
                 var pluginSvc = provider.RequireService<IPluginLoaderService>();
 
-                if (pd.Option.TypeName is null)
+                if (pd is null || pd.Option.TypeName is null)
                     return value;
                 var dlgType = pluginSvc.GetType(pd.Option.TypeName);
-                if (dlgType == null)
+                if (dlgType is null)
                     return value;
-                if (!(Activator.CreateInstance(dlgType) is Form form))
+                if (Activator.CreateInstance(dlgType) is not Form form)
                     return value;
                 var valueProperty = dlgType.GetProperty("Value");
-                if (valueProperty == null)
+                if (valueProperty is null)
                     return value;
 
                 valueProperty.SetValue(form, value);
-                if (svc.ShowDialog(form) == System.Windows.Forms.DialogResult.OK)
+                if (svc.ShowDialog(form) == DialogResult.OK)
                 {
                     value = valueProperty.GetValue(form)!;
                 }
